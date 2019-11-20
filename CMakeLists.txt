@@ -2,6 +2,7 @@
 cmake_minimum_required(VERSION 3.15)
 
 set(CMAKE_VERBOSE_MAKEFILE OFF)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # set C++ standard
 set(CMAKE_CXX_STANDARD 17)

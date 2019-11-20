@@ -3,6 +3,8 @@
 
 #include "catch.hpp"
 #include <cmath>
+#include <iostream>
+#include "constants.h"
 
 namespace RT
 {
@@ -12,6 +14,14 @@ struct tuple
 {
     T x, y, z, w;
 };
+
+// print a tuple
+template<typename T>
+std::ostream& operator<<(std::ostream& os, tuple<T> const& t)
+{
+    os << "(" << t.x << ", " << t.y << ", " << t.z << ")\n";
+    return os;
+}
 
 // create a point from (x,y,z) coordinates
 template<typename T>
@@ -27,10 +37,10 @@ auto vector(T const x, T const y, T const z) -> tuple<T>
 template<typename T1, typename T2>
 auto operator==(tuple<T1> const& lhs, tuple<T2> const& rhs)
 {
-    return (Approx(lhs.x) == rhs.x) &&
-           (Approx(lhs.y) == rhs.y) &&
-           (Approx(lhs.z) == rhs.z) &&
-           (Approx(lhs.w) == rhs.w);
+    return (Approx(lhs.x).margin(TOLERANCE) == rhs.x) &&
+           (Approx(lhs.y).margin(TOLERANCE) == rhs.y) &&
+           (Approx(lhs.z).margin(TOLERANCE) == rhs.z) &&
+           (Approx(lhs.w).margin(TOLERANCE) == rhs.w);
 }
 
 // overload addition to add tuples element-wise
