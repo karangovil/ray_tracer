@@ -1,6 +1,5 @@
 language: cpp
 compiler:
-  - gcc
   - clang
 addons:
   apt:
@@ -8,8 +7,8 @@ addons:
     - ubuntu-toolchain-r-test
     - llvm-toolchain-precise-4.0
     packages:
-    - clang-9.0
+    - clang-9
 install:
-- "[ $CXX = clang++ ] && export CXX=clang++-9.0 || true"
+- "[ $CXX = clang++ ] && export CXX=clang++-9 || true"
 script:
   - make
