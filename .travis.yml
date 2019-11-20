@@ -8,8 +8,8 @@ addons:
     - ubuntu-toolchain-r-test
     - llvm-toolchain-precise-4.0
     packages:
-    - clang-9.0.0
+    - clang-9.0
 install:
-- "[ $CXX = clang++ ] && export CXX=clang++-9.0.0 || true"
+- "[ $CXX = clang++ ] && export CXX=clang++-9.0 || true"
 script:
   - make
