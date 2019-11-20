@@ -6,8 +6,7 @@ before_install:
   - sudo apt-get update -qq
 
 install: 
-  - sudo apt-get install -qq clang++-9
-  - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/clang++-9 90
+  - sudo apt-get install -qq clang-9
 
 script:
   - mkdir build
