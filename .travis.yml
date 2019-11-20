@@ -1,17 +1,23 @@
-language: cpp
-compiler: gcc
+os:
+  - linux
 
-os: linux
+language: cpp
+
+dist: trusty
+
 addons:
   apt:
     sources:
       - ubuntu-toolchain-r-test
+      - sourceline: "ppa:beineri/opt-qt-5.10.1-trusty"
     packages:
+      - gcc-7
       - g++-7
 
 script:
-  - export CC=gcc-7
-  - export CXX=g++-7
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+      export CC=gcc-7 ;
+      export CXX=g++-7 ;
+    fi
   - cmake --version
-  - cmake CMakeLists.txt
-  - cmake  --build . --target neat
+  - ...
