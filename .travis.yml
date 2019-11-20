@@ -1,14 +1,15 @@
 language: cpp
-compiler:
-  - clang
-addons:
-  apt:
-    sources:
-    - ubuntu-toolchain-r-test
-    - llvm-toolchain-precise-4.0
-    packages:
-    - clang-9
-install:
-- "[ $CXX = clang++ ] && export CXX=clang++-9 || true"
+compiler: gcc
+dist: trusty
+
+before_install:
+  - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+  - sudo apt-get update -qq
+
+install: 
+  - sudo apt-get install -qq g++-6
+  - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-6 90
+
 script:
+  - cmake .
   - make
