@@ -28,15 +28,11 @@ public:
 
 // write a pixel on a canvas
 void write_pixel(canvas& c, size_t i, size_t j, color<float> const& col)
-{
-    c.pixels[i * c.height + j] = col;
-}
+{ c.pixels[i * c.width + j] = col; }
 
 // write a pixel on a canvas
 color<float> pixel_at(canvas& c, size_t i, size_t j)
-{
-    return c.pixels[i * c.height + j];
-}
+{ return c.pixels[i * c.width + j]; }
 
 void canvas_to_ppm(canvas const& c, std::string fname)
 {
