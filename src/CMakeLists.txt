@@ -18,3 +18,10 @@ add_executable(${TARGET2} ${SOURCES2})
 
 target_include_directories(${TARGET2} PUBLIC ${CMAKE_SOURCE_DIR}/libs/catch)
 
+set(TARGET3 raySphere)
+set(SOURCES3 raySphereProj.cpp)
+
+add_executable(${TARGET3} ${SOURCES3})
+
+target_include_directories(${TARGET3} PUBLIC ${CMAKE_SOURCE_DIR}/libs/catch)
+

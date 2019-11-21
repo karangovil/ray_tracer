@@ -54,3 +54,28 @@ set(SOURCES6 test_main.cpp
 add_executable(${TARGET6} ${SOURCES6})
 
 target_include_directories(${TARGET6} PUBLIC ${CMAKE_SOURCE_DIR}/libs/catch)
+
+set(TARGET7 ${REL_PATH}.testRay)
+set(SOURCES7 test_main.cpp
+             test_ray.cpp)
+
+add_executable(${TARGET7} ${SOURCES7})
+
+target_include_directories(${TARGET7} PUBLIC ${CMAKE_SOURCE_DIR}/libs/catch)
+
+set(TARGET8 ${REL_PATH}.testSphere)
+set(SOURCES8 test_main.cpp
+             test_sphere.cpp)
+
+add_executable(${TARGET8} ${SOURCES8})
+
+target_include_directories(${TARGET8} PUBLIC ${CMAKE_SOURCE_DIR}/libs/catch)
+
+set(TARGET9 ${REL_PATH}.testIntersection)
+set(SOURCES9 test_main.cpp
+             test_intersection.cpp)
+
+add_executable(${TARGET9} ${SOURCES9})
+
+target_include_directories(${TARGET9} PUBLIC ${CMAKE_SOURCE_DIR}/libs/catch)
+
