@@ -4,11 +4,11 @@
 #include <array>
 #include <stdexcept>
 #include <iostream>
-#include <catch.hpp>
 #include <iostream>
 #include <algorithm>
 #include "tuple.h"
 #include "constants.h"
+#include "utils.h"
 
 namespace RT
 {
@@ -72,7 +72,7 @@ bool operator==(matrix4x4<T1> const& m1, matrix4x4<T2> const& m2)
     bool res = true;
     for (int i = 0; i < 16; ++i)
     {
-        res = res && (Approx(m1.data()[i]).margin(TOLERANCE) == m2.data()[i]);
+        res = res && AlmostEquals(m1.data()[i], m2.data()[i]);
         if (res == false)
             return res;
     }

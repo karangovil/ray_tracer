@@ -79,3 +79,11 @@ add_executable(${TARGET9} ${SOURCES9})
 
 target_include_directories(${TARGET9} PUBLIC ${CMAKE_SOURCE_DIR}/libs/catch)
 
+set(TARGET10 ${REL_PATH}.testReflection)
+set(SOURCES10 test_main.cpp
+             test_reflection.cpp)
+
+add_executable(${TARGET10} ${SOURCES10})
+
+target_include_directories(${TARGET10} PUBLIC ${CMAKE_SOURCE_DIR}/libs/catch)
+

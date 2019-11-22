@@ -1,10 +1,10 @@
 #ifndef TUPLE_H
 #define TUPLE_H
 
-#include "catch.hpp"
 #include <cmath>
 #include <iostream>
 #include "constants.h"
+#include "utils.h"
 
 namespace RT
 {
@@ -37,10 +37,10 @@ auto vector(T const x, T const y, T const z) -> tuple<T>
 template<typename T1, typename T2>
 auto operator==(tuple<T1> const& lhs, tuple<T2> const& rhs)
 {
-    return (Approx(lhs.x).margin(TOLERANCE) == rhs.x) &&
-           (Approx(lhs.y).margin(TOLERANCE) == rhs.y) &&
-           (Approx(lhs.z).margin(TOLERANCE) == rhs.z) &&
-           (Approx(lhs.w).margin(TOLERANCE) == rhs.w);
+    return AlmostEquals(lhs.x, rhs.x) &&
+           AlmostEquals(lhs.y, rhs.y) &&
+           AlmostEquals(lhs.z, rhs.z) &&
+           AlmostEquals(lhs.w, rhs.w);
 }
 
 // overload addition to add tuples element-wise
