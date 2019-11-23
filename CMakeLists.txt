@@ -1,5 +1,5 @@
 # specify minimum version required
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.12)
 
 set(CMAKE_VERBOSE_MAKEFILE OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
