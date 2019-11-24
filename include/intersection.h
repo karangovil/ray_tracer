@@ -30,6 +30,7 @@ private:
     const double m_t;
 };
 
+inline
 auto operator==(intersection const& i1, intersection const& i2) -> bool
 { return ((i1.t() == i2.t()) && (i1.obj() == i2.obj())); }
 
@@ -55,6 +56,7 @@ auto intersect(std::shared_ptr<object> const& sph, ray<Point, Vector> const& r)
     }
 }
 
+inline
 auto hit(std::vector<intersection> const& is) -> std::optional<intersection>
 {
     std::vector<intersection> isPos;

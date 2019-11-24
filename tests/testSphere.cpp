@@ -23,6 +23,17 @@ TEST_CASE("sphere should work")
         REQUIRE(s.radius() == radius);
         REQUIRE(s.center() == center);
     }
+    
+    SECTION("creating a sphere with a material should work")
+    {
+        material m;
+        m.set_color({0.8, 1.0, 0.6});
+        m.set_diffuse(0.7);
+        m.set_specular(0.2);
+    
+        sphere s {m};
+        REQUIRE(s.mat() == m);
+    }
 
     SECTION("normals should work")
     {

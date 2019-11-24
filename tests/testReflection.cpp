@@ -23,17 +23,7 @@ TEST_CASE("reflections should work")
 
         REQUIRE(reflect(v, n) == vector(1, 0, 0));
     }
-
-    SECTION("point light source should work")
-    {
-        color<float> intensity {1.0, 1.0, 1.0};
-        auto position = point(0.0, 0.0, 0.0);
-        point_light light {position, intensity};
-
-        REQUIRE(light.position() == position);
-        REQUIRE(light.intensity() == intensity);
-    }
-
+    
     SECTION("lighting should work")
     {
         material m;

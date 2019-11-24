@@ -19,6 +19,11 @@ public:
     sphere(tuple<double> center, double radius)
         : m_center {center},
           m_radius {radius} {}
+    
+    sphere(material mat)
+        : m_center {point(0.0, 0.0, 0.0)},
+          m_radius {1.0},
+          m_material {mat} {}
 
     double radius() const { return m_radius; }
     tuple<double> center() const { return m_center; }

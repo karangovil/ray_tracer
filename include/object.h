@@ -8,9 +8,7 @@ namespace RT
 
 struct object
 {
-    object() {}
-
-    virtual ~object() {}
+    virtual ~object() = default;
 
     virtual material mat() const = 0;
     virtual void set_material(material m) = 0;
