@@ -14,17 +14,16 @@ install:
   - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-9 90
 
 script:
-  - mkdir build
-  - cd build
-  - cmake --version
-  - cmake ..
-  - make
-  - ctest
+  - export CODECOV_TOKEN="56b8d613-ceb7-4fba-99aa-874bcf3b98e3"
+  - sh build.sh
 
 after_success:
 # Create lcov report
-  - lcov --capture --directory . --output-file coverage.info
-  - lcov --remove coverage.info '/usr/*' --output-file coverage.info # filter system-files
-  - lcov --list coverage.info # debug info
+# capture coverage info
+  - lcov --capture --directory . --output-file coverage.info --no-external
+# filter out system and extra files.
+  - lcov --remove coverage.info '/usr/*' '*/libs/*' '*/tests/*' --output-file coverage.info
+# output coverage data for debugging
+  - lcov --list coverage.info
   # Uploading report to CodeCov
   - bash <(curl -s https://codecov.io/bash) -f coverage.info || echo "Codecov did not collect coverage reports"

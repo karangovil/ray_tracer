@@ -1,21 +1,11 @@
-enable_testing()
-
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR})
-
 set(CMAKE_BUILD_TYPE Release)
 
-set(TARGET1 projectile)
-set(SOURCES1 env.cpp)
+function(add_new_target name)
+    set(TARGET_NEW ${name})
+    add_executable(${TARGET_NEW} ${name}.cpp)
+    target_link_libraries(${TARGET_NEW} ray_tracer)
+endfunction()
 
-add_executable(${TARGET1} ${SOURCES1})
-
-set(TARGET2 clock)
-set(SOURCES2 clock.cpp)
-
-add_executable(${TARGET2} ${SOURCES2})
-
-set(TARGET3 raySphere)
-set(SOURCES3 raySphereProj.cpp)
-
-add_executable(${TARGET3} ${SOURCES3})
-
+add_new_target(projectile)
+add_new_target(clock)
+add_new_target(raySphere)
