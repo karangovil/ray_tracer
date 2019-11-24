@@ -9,7 +9,9 @@ before_install:
 
 install: 
   - sudo apt-get install -qq g++-9
+  - sudo apt-get install -qq gcc-9
   - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-9 90
+  -  sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 90
 
 script:
   - export CODECOV_TOKEN="56b8d613-ceb7-4fba-99aa-874bcf3b98e3"
