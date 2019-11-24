@@ -1,6 +1,10 @@
 language: cpp
 compiler: gcc
 
+addons:
+  apt:
+    packages: lcov
+
 before_install:
   - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
   - sudo apt-get update -qq
@@ -15,3 +19,12 @@ script:
   - cmake --version
   - cmake ..
   - make
+  - ctest
+
+after_success:
+# Create lcov report
+  - lcov --capture --directory . --output-file coverage.info
+  - lcov --remove coverage.info '/usr/*' --output-file coverage.info # filter system-files
+  - lcov --list coverage.info # debug info
+  # Uploading report to CodeCov
+  - bash <(curl -s https://codecov.io/bash) -f coverage.info || echo "Codecov did not collect coverage reports"
