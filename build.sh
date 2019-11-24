@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SHELL=/bin/bash
-set -euo pipefail
+#set -euo pipefail
 
 mkdir -p build && cd build
 
