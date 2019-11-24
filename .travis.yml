@@ -29,8 +29,7 @@ script:
 after_success:
 # Create lcov report
 # capture coverage info
-  - ls /usr/bin | grep "gcov"
-  - lcov --gcov-tool /usr/bin/gcov-9.2 --capture --directory . --output-file coverage.info --no-external
+  - lcov --gcov-tool /usr/bin/gcov-9 --capture --directory . --output-file coverage.info --no-external
 # filter out system and extra files.
   - lcov --remove coverage.info '/usr/*' '*/libs/*' '*/tests/*' --output-file coverage.info
 # output coverage data for debugging
