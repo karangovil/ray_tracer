@@ -17,7 +17,7 @@ install:
 
 script:
   - export CODECOV_TOKEN="56b8d613-ceb7-4fba-99aa-874bcf3b98e3"
-  - sh build.sh
+  - sudo sh build.sh
 
 after_success:
 # Create lcov report
