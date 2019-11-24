@@ -8,6 +8,7 @@ before_install:
   - sudo wget http://downloads.sourceforge.net/ltp/lcov-1.14.tar.gz
   - tar -xvf lcov-1.14.tar.gz
   - cd lcov-1.14 && sudo make install
+  - cd ..
 
 install: 
   - sudo apt-get install -qq g++-9
@@ -17,7 +18,7 @@ install:
 
 script:
   - export CODECOV_TOKEN="56b8d613-ceb7-4fba-99aa-874bcf3b98e3"
-  - sudo sh build.sh
+  - sh build.sh
 
 after_success:
 # Create lcov report
