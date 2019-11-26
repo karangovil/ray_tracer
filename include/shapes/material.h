@@ -1,8 +1,8 @@
 #ifndef MATERIAL_H
 #define MATERIAL_H
 
-#include "colors.h"
-#include "utils.h"
+#include "graphics/colors.h"
+#include "utils/equality.h"
 
 namespace RT
 {
@@ -12,7 +12,7 @@ struct material
 public:
     material()
         : m_ambient {0.1}, m_diffuse {0.9}, m_specular {0.9},
-          m_shininess {200.0}, m_color {1.0, 1.0, 1.0} {}
+          m_shininess {200.0}, m_color {1.0f, 1.0f, 1.0f} {}
 
     material(float amb, float diff, float spec, float shiny, color<float> col)
         : m_ambient {amb}, m_diffuse {diff}, m_specular {spec},

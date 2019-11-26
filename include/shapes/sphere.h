@@ -1,10 +1,12 @@
 #ifndef SPHERE_H
 #define SPHERE_H
 
-#include "object.h"
-#include "tuple.h"
-#include "matrix4x4.h"
-#include "reflection.h"
+#include <memory>
+
+#include "shapes/material.h"
+#include "shapes/object.h"
+#include "math/tuple.h"
+#include "math/matrix4x4.h"
 
 namespace RT
 {
@@ -25,10 +27,16 @@ public:
           m_radius {1.0},
           m_material {mat} {}
 
+    std::shared_ptr<object> create() const
+    { return std::make_shared<sphere>(); };
+
+    std::shared_ptr<object> clone() const
+    { return std::make_shared<sphere>(*this); }
+
     double radius() const { return m_radius; }
     tuple<double> center() const { return m_center; }
     matrix4x4<double> transform() const { return m_transform; }
-    material mat() const { return m_material; }
+    material const& mat() const { return m_material; }
 
     void set_transform(matrix4x4<double> t) { m_transform = t; }
     void set_material(struct material m) { m_material = m; }

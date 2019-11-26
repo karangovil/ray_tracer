@@ -1,7 +1,7 @@
 #include "catch.hpp"
 
-#include "matrix4x4.h"
-#include "tuple.h"
+#include "math/matrix4x4.h"
+#include "math/tuple.h"
 
 using namespace Catch::literals;
 using namespace RT;

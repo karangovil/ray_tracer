@@ -7,7 +7,8 @@
 #include <fstream>
 #include <iostream>
 #include <string>
-#include "colors.h"
+
+#include "graphics/colors.h"
 
 namespace RT
 {

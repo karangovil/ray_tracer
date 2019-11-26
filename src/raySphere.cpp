@@ -1,11 +1,11 @@
-#include "ray.h"
-#include "tuple.h"
-#include "canvas.h"
-#include "intersection.h"
-#include "sphere.h"
-#include "object.h"
-#include "transformations.h"
-#include "reflection.h"
+#include "graphics/ray.h"
+#include "math/tuple.h"
+#include "graphics/canvas.h"
+#include "graphics/intersection.h"
+#include "shapes/sphere.h"
+#include "shapes/object.h"
+#include "math/transformations.h"
+#include "graphics/reflection.h"
 
 #include <memory>
 

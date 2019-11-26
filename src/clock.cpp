@@ -1,7 +1,7 @@
-#include "transformations.h"
-#include "tuple.h"
-#include "canvas.h"
-#include "colors.h"
+#include "math/transformations.h"
+#include "math/tuple.h"
+#include "graphics/canvas.h"
+#include "graphics/colors.h"
 
 using namespace RT;
 

@@ -1,8 +1,8 @@
 
 #include "catch.hpp"
 
-#include "intersection.h"
-#include "transformations.h"
+#include "graphics/intersection.h"
+#include "math/transformations.h"
 
 using namespace Catch::literals;
 using namespace RT;

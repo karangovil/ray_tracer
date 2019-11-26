@@ -1,6 +1,7 @@
-#include "tuple.h"
-#include "canvas.h"
 #include <cmath>
+
+#include "math/tuple.h"
+#include "graphics/canvas.h"
 
 using namespace RT;
 

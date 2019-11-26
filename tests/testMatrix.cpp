@@ -1,6 +1,6 @@
 #include "catch.hpp"
 
-#include "matrix.h"
+#include "math/matrix.h"
 
 using namespace Catch::literals;
 using namespace RT;

@@ -1,10 +1,12 @@
 #ifndef REFLECTION_H
 #define REFLECTION_H
 
-#include "tuple.h"
-#include "colors.h"
-#include "material.h"
-#include "light.h"
+#include "math/tuple.h"
+#include "graphics/colors.h"
+#include "shapes/material.h"
+#include "graphics/light.h"
+#include "graphics/world.h"
+#include "graphics/computations.h"
 
 namespace RT
 {
@@ -49,6 +51,33 @@ auto lighting(material m,
     }
 
     return ambient + diffuse + specular;
+}
+
+inline
+auto shade_hit(world w, computations c)
+{
+    return lighting(c.obj()->mat(),
+                    w.light(),
+                    c.point(), c.eye_v(), c.normal_v());
+}
+
+template<typename Point, typename Vector>
+auto color_at(world w, ray<Point, Vector> r)
+{
+    auto ints = intersect_world(w, r);
+    if (ints.has_value())
+    {
+        auto h = hit(ints.value());
+        if (h.has_value())
+        {
+            computations c {h.value(), r};
+            return shade_hit(w, c);
+        }
+        else
+            return color {0.0f, 0.0f, 0.0f};
+    }
+    else
+        return color {0.0f, 0.0f, 0.0f};
 }
 
 } // end namespace RT

@@ -1,7 +1,7 @@
 #include "catch.hpp"
 
-#include "sphere.h"
-#include "transformations.h"
+#include "shapes/sphere.h"
+#include "math/transformations.h"
 
 using namespace Catch::literals;
 using namespace RT;

@@ -1,7 +1,7 @@
 #include "catch.hpp"
 
-#include "ray.h"
-#include "transformations.h"
+#include "graphics/ray.h"
+#include "math/transformations.h"
 
 using namespace Catch::literals;
 using namespace RT;

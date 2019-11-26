@@ -1,8 +1,8 @@
 #ifndef POINT_LIGHT_H
 #define POINT_LIGHT_H
 
-#include "colors.h"
-#include "tuple.h"
+#include "graphics/colors.h"
+#include "math/tuple.h"
 
 namespace RT
 {
@@ -19,6 +19,12 @@ private:
     tuple<double> m_position;
     color<float> m_intensity;
 };
+
+auto operator==(point_light const& l1, point_light const& l2) -> bool
+{
+    return (l1.position() == l2.position()) &&
+           (l1.intensity() == l2.intensity());
+}
 
 } //end namespace RT
 #endif

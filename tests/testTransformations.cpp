@@ -1,7 +1,6 @@
 #include "catch.hpp"
 
-#include "transformations.h"
-#include "constants.h"
+#include "math/transformations.h"
 
 using namespace Catch::literals;
 using namespace RT;
@@ -88,6 +87,60 @@ TEST_CASE("matrix transformations should work")
         REQUIRE(C * p3 == p4);
         REQUIRE(C * B * A * p1 == p4);
 
+    }
+
+    SECTION("identity view transform should work")
+    {
+        auto from = point(0.0, 0.0, 0.0);
+        auto to = point(0.0, 0.0, -1.0);
+        auto up = vector(0.0, 1.0, 0.0);
+        REQUIRE(view_transform(from, to, up) == matrix4x4<double> {});
+    }
+    
+    SECTION("reflection view transform should work")
+    {
+        auto from = point(0.0, 0.0, 0.0);
+        auto to = point(0.0, 0.0, 1.0);
+        auto up = vector(0.0, 1.0, 0.0);
+        REQUIRE(view_transform(from, to, up) == scaling(-1.0, 1.0, -1.0));
+    }
+
+    SECTION("translation view transform should work")
+    {
+        auto from = point(0.0, 0.0, 8.0);
+        auto to = point(0.0, 0.0, 0.0);
+        auto up = vector(0.0, 1.0, 0.0);
+        REQUIRE(view_transform(from, to, up) == translation(0.0, 0.0, -8.0));
+    }
+
+    SECTION("arbitrary view transform should work")
+    {
+        auto from = point(1.0, 3.0, 2.0);
+        auto to = point(4.0, -2.0, 8.0);
+        auto up = vector(1.0, 1.0, 0.0);
+
+        matrix4x4<double> expected;
+
+        expected(0,0) = -0.507093;
+        expected(0,1) = 0.507093;
+        expected(0,2) = 0.676123;
+        expected(0,3) = -2.36643;
+
+        expected(1,0) = 0.767716;
+        expected(1,1) = 0.606092;
+        expected(1,2) = 0.121218;
+        expected(1,2) = -2.82843;
+
+        expected(2,0) = -0.358569;
+        expected(2,1) = -0.597614;
+        expected(2,2) = -0.717137;
+
+        auto res = view_transform(from, to, up);
+        for (int i = 0; i < 4; ++i){
+            for (int j = 0; j < 4; ++j){
+                REQUIRE(expected(i,j) == Approx(res(i,j)).margin(5));
+            }
+        }
     }
 
 }

@@ -7,11 +7,12 @@
 #include <optional>
 #include <algorithm>
 
-#include "object.h"
-#include "sphere.h"
-#include "ray.h"
-#include "tuple.h"
-#include "matrix4x4.h"
+#include "shapes/object.h"
+#include "shapes/sphere.h"
+#include "graphics/ray.h"
+#include "math/tuple.h"
+#include "math/matrix4x4.h"
+#include "graphics/world.h"
 
 namespace RT
 {
@@ -25,9 +26,21 @@ public:
     std::shared_ptr<object> obj() const { return m_obj; }
     double t() const { return m_t; }
 
+    intersection& operator=(intersection const& i)
+    {
+        m_t = i.t();
+        m_obj = i.obj();
+        return *this;
+    }
+    
+    intersection(intersection const& i)
+    {
+        m_t = i.t();
+        m_obj = i.obj();
+    }
 private:
-    const std::shared_ptr<object> m_obj;
-    const double m_t;
+    std::shared_ptr<object> m_obj;
+    double m_t;
 };
 
 inline
@@ -38,7 +51,7 @@ template<typename Point, typename Vector>
 auto intersect(std::shared_ptr<object> const& sph, ray<Point, Vector> const& r)
         -> std::optional<std::vector<intersection>>
 {
-    auto r2 = transform(r, inverse((dynamic_cast<sphere&>(*sph)).transform()));
+    auto r2 = transform(r, inverse(sph->transform()));
 
     auto sphere_to_ray = r2.origin() - (dynamic_cast<sphere&>(*sph)).center();
     auto a = dot(r2.direction(), r2.direction());
@@ -53,6 +66,28 @@ auto intersect(std::shared_ptr<object> const& sph, ray<Point, Vector> const& r)
         auto t1 = (-b - std::sqrt(discriminant)) / (2.0 * a); 
         auto t2 = (-b + std::sqrt(discriminant)) / (2.0 * a);
         return std::vector<intersection> {intersection {sph, t1}, intersection {sph, t2}};
+    }
+}
+
+template<typename Point, typename Vector>
+auto intersect_world(world const& w, ray<Point, Vector> const& r)
+        -> std::optional<std::vector<intersection>>
+{
+    std::vector<intersection> res;
+    for (auto  const& o : w.objs())
+    {
+        auto ints = intersect(o, r);
+        if (ints.has_value())
+            res.insert(res.begin(), ints.value().begin(), ints.value().end());
+    }
+
+    if (res.size() == 0)
+        return std::nullopt;
+    else
+    {
+        std::sort(res.begin(), res.end(),
+                [](auto e1, auto e2) { return e1.t() < e2.t(); });
+        return res;
     }
 }
 

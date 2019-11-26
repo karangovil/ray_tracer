@@ -1,6 +1,6 @@
 #include "catch.hpp"
 
-#include "tuple.h"
+#include "math/tuple.h"
 
 using namespace Catch::literals;
 using namespace RT;

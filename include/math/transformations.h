@@ -2,8 +2,9 @@
 #define TRANSFORMATIONS_H
 
 #include <math.h>
-#include "tuple.h"
-#include "matrix4x4.h"
+
+#include "math/tuple.h"
+#include "math/matrix4x4.h"
 
 namespace RT
 {
@@ -80,6 +81,32 @@ auto shearing(T x_y, T x_z, T y_x, T y_z, T z_x, T z_y)
     res(2,1) = z_y;
 
     return res;
+}
+
+template<typename T>
+auto view_transform(tuple<T> const& from,
+                    tuple<T> const& to,
+                    tuple<T> const& up)
+{
+    auto forward = normalize(to - from);
+    auto up_n = normalize(up);
+    auto left = cross(forward, up_n);
+    auto true_up = cross(left, forward);
+
+    matrix4x4<double> orientation;
+    orientation(0,0) = left.x;
+    orientation(0,1) = left.y;
+    orientation(0,2) = left.z;
+
+    orientation(1,0) = true_up.x;
+    orientation(1,1) = true_up.y;
+    orientation(1,2) = true_up.z;
+
+    orientation(2,0) = -forward.x;
+    orientation(2,1) = -forward.y;
+    orientation(2,2) = -forward.z;
+
+    return orientation * translation(-from.x, -from.y, -from.z);
 }
 
 } // end namespace RT

@@ -6,9 +6,10 @@
 #include <iostream>
 #include <iostream>
 #include <algorithm>
+
 #include "tuple.h"
 #include "constants.h"
-#include "utils.h"
+#include "utils/equality.h"
 
 namespace RT
 {

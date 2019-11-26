@@ -1,6 +1,6 @@
 #include "catch.hpp"
 
-#include "light.h"
+#include "graphics/light.h"
 
 using namespace Catch::literals;
 using namespace RT;

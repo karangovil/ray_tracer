@@ -1,6 +1,6 @@
 #include "catch.hpp"
 
-#include "material.h"
+#include "shapes/material.h"
 
 using namespace Catch::literals;
 using namespace RT;

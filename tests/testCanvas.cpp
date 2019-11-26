@@ -1,6 +1,6 @@
 #include "catch.hpp"
 
-#include "canvas.h"
+#include "graphics/canvas.h"
 
 using namespace Catch::literals;
 using namespace RT;

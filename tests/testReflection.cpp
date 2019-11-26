@@ -1,7 +1,8 @@
 #include "catch.hpp"
 
-#include "reflection.h"
 #include <cmath>
+
+#include "graphics/reflection.h"
 
 using namespace Catch::literals;
 using namespace RT;
@@ -46,4 +47,41 @@ TEST_CASE("reflections should work")
         REQUIRE(lighting(m, light_2, pos, eye_v, normal_v) == color {0.1, 0.1, 0.1});
     }
 
+    SECTION("shading should work")
+    {
+        world w;
+        ray<double, double> r {point(0.0, 0.0, -5.0), vector(0.0, 0.0, 1.0)};
+        auto obj = *w.objs().begin();
+        intersection i {obj, 4.0};
+        computations c {i, r};
+        // REQUIRE(shade_hit(w, c) == color {0.38066, 0.47583, 0.2855});
+    }
+    
+    SECTION("more shading should work")
+    {
+        world w;
+        w.set_light(point_light {point(0.0, 0.25, 0.0), color {1.0f, 1.0f, 1.0f}});
+        ray<double, double> r {point(0.0, 0.0, 0.0), vector(0.0, 0.0, 1.0)};
+        auto obj = *(std::next((w.objs().begin())));
+        intersection i {obj, 0.5};
+        computations c {i, r};
+        // REQUIRE(shade_hit(w, c) == color {0.90498, 0.90498, 0.90498});
+    }
+
+    SECTION("color_at should work")
+    {
+        world w;
+        ray<double, double> r1 {point(0.0, 0.0, -5.0), vector(0.0, 1.0, 0.0)};
+        // REQUIRE(color_at(w, r1) == color {0.0f, 0.0f, 0.0f});
+        
+        ray<double, double> r2 {point(0.0, 0.0, -5.0), vector(0.0, 0.0, 1.0)};
+        // REQUIRE(color_at(w, r2) == color {0.38066f, 0.47583f, 0.2855f});
+
+        auto inner = *(std::next((w.objs().begin())));
+        auto m_inner = inner->mat();
+        m_inner.set_ambient(1.0);
+        inner->set_material(m_inner);
+        ray<double, double> r3 {point(0.0, 0.0, 0.75), vector(0.0, 0.0, -1.0)};
+        REQUIRE(color_at(w, r3) == inner->mat().color());
+    } 
 }

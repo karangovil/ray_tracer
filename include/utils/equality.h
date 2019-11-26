@@ -1,5 +1,5 @@
-#ifndef UTILS_H
-#define UTILS_H
+#ifndef EQUALITY_H
+#define EQUALITY_H
 
 #include <cmath>
 

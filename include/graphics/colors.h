@@ -2,7 +2,7 @@
 #define COLORS_H
 
 #include <iostream>
-#include "utils.h"
+#include "utils/equality.h"
 
 namespace RT
 {

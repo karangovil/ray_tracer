@@ -3,8 +3,8 @@
 
 #include <cmath>
 #include <iostream>
-#include "constants.h"
-#include "utils.h"
+
+#include "utils/equality.h"
 
 namespace RT
 {
