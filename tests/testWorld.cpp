@@ -18,12 +18,12 @@ TEST_CASE("world should work")
 
         REQUIRE(w.light() == light);
 
-        auto s1 = std::make_shared<sphere> (material {0.1, 0.7, 0.2, 200.0, {0.8f, 1.0f, 0.6f}});
-        std::shared_ptr<object> s2 = std::make_shared<sphere>();
-        s2->set_transform(scaling(0.5, 0.5, 0.5));
-        
-        REQUIRE(w.objs().find(s1) != w.objs().end());
-        REQUIRE(w.objs().find(s2) != w.objs().end());
+        sphere s1 {material {0.1, 0.7, 0.2, 200.0, {0.8f, 1.0f, 0.6f}}};
+        sphere s2 {};
+        s2.set_transform(scaling(0.5, 0.5, 0.5));
+
+        REQUIRE(dynamic_cast<sphere&>(*w.objs()[0]) == s1);
+        REQUIRE(dynamic_cast<sphere&>(*w.objs()[1]) == s2);
     }
 
     SECTION("world intersection should work")

@@ -57,5 +57,13 @@ private:
     struct material m_material;
 };
 
+auto operator==(sphere const& s1, sphere const& s2) -> bool
+{
+    return (s1.radius() == s2.radius()) &&
+           (s1.center() == s2.center()) &&
+           (s1.transform() == s2.transform()) &&
+           (s1.mat() == s2.mat());
+}
+
 } // end namespace RT
 #endif

@@ -74,10 +74,10 @@ auto color_at(world w, ray<Point, Vector> r)
             return shade_hit(w, c);
         }
         else
-            return color {0.0f, 0.0f, 0.0f};
+        { return color {0.0f, 0.0f, 0.0f}; }
     }
     else
-        return color {0.0f, 0.0f, 0.0f};
+    { return color {0.0f, 0.0f, 0.0f}; }
 }
 
 } // end namespace RT
