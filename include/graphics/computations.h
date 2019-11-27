@@ -7,6 +7,7 @@
 #include "graphics/ray.h"
 #include "shapes/object.h"
 #include "math/tuple.h"
+#include "math/constants.h"
 
 namespace RT
 {
@@ -28,11 +29,13 @@ public:
         }
         else
             m_inside = false;
+        m_over_point = m_point + m_normal_v * TOLERANCE_F;
     }
 
     auto t() const { return m_t; }
     auto obj() const { return m_obj; }
     auto point() const { return m_point; }
+    auto over_point() const { return m_over_point; }
     auto eye_v() const { return m_eye_v; }
     auto normal_v() const { return m_normal_v; }
     auto inside() const { return m_inside; }
@@ -40,7 +43,7 @@ public:
 private:
     double m_t;
     std::shared_ptr<object> m_obj;
-    tuple<double> m_point, m_eye_v, m_normal_v;
+    tuple<double> m_point, m_over_point, m_eye_v, m_normal_v;
     bool m_inside;
 };
 

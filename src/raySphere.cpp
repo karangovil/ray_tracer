@@ -56,7 +56,7 @@ int main()
                     auto p = position(r, h.value().t());
                     auto normal = s->normal_at(p);
                     auto eye_v = -r.direction();
-                    auto col = lighting(s->mat(), light, p, eye_v, normal);
+                    auto col = lighting(s->mat(), light, p, eye_v, normal, false);
                     write_pixel(c, x, y, col);
                 }
             }

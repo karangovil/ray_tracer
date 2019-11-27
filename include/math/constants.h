@@ -8,7 +8,8 @@
 namespace RT
 {
 
-const double TOLERANCE = 1e-15;
+const double TOLERANCE_D = 1e-15;
+const float TOLERANCE_F = 1e-8;
 
 } // end namespace RT
 

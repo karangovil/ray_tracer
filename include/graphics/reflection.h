@@ -15,42 +15,68 @@ template<typename T>
 auto reflect(tuple<T> in, tuple<T> normal)
 { return (in - normal * 2 * dot(in, normal)); }
 
+template<typename T>
+auto is_shadowed(world w, tuple<T> pt) -> bool
+{
+    auto v = w.light().position() - pt;
+    auto distance = magnitude(v);
+    auto direction = normalize(v);
+
+    auto is_shadowed_res = false;
+
+    ray<T, double> r {pt, direction};
+    auto ints = intersect_world(w, r);
+    if (ints.has_value())
+    {
+        auto h = hit(ints.value());
+        if (h.has_value() && h.value().t() < distance)
+            is_shadowed_res = true;
+    }
+    return is_shadowed_res;
+}
+
 inline
 auto lighting(material m,
               point_light l,
               tuple<double> position,
               tuple<double> eye_v,
-              tuple<double> normal_v)
+              tuple<double> normal_v,
+              bool in_shadow)
 {
     color<float> effective_color = m.color() * l.intensity();
     auto light_v = normalize(l.position() - position);
     color<float> ambient = effective_color * m.ambient();
-    float light_dot_normal = dot(light_v, normal_v);
-
-    color<float> diffuse, specular;
-
-    color<float> black {0.0, 0.0, 0.0};
-
-    if (light_dot_normal < 0.0)
-    {
-        diffuse = black;
-        specular = black;
-    }
+    if (in_shadow)
+    { return ambient; }
     else
     {
-        diffuse = effective_color * m.diffuse() * light_dot_normal;
-        auto reflect_v = reflect(-light_v, normal_v);
-        auto reflect_dot_eye = dot(reflect_v, eye_v);
-        if (reflect_dot_eye <= 0.0)
+        float light_dot_normal = dot(light_v, normal_v);
+
+        color<float> diffuse, specular;
+
+        color<float> black {0.0, 0.0, 0.0};
+
+        if (light_dot_normal < 0.0)
+        {
+            diffuse = black;
             specular = black;
+        }
         else
         {
-            float factor = std::pow(reflect_dot_eye, m.shininess());
-            specular = l.intensity() * m.specular() * factor;
+            diffuse = effective_color * m.diffuse() * light_dot_normal;
+            auto reflect_v = reflect(-light_v, normal_v);
+            auto reflect_dot_eye = dot(reflect_v, eye_v);
+            if (reflect_dot_eye <= 0.0)
+                specular = black;
+            else
+            {
+                float factor = std::pow(reflect_dot_eye, m.shininess());
+                specular = l.intensity() * m.specular() * factor;
+            }
         }
-    }
 
-    return ambient + diffuse + specular;
+        return ambient + diffuse + specular;
+    }
 }
 
 inline
@@ -58,7 +84,8 @@ auto shade_hit(world w, computations c)
 {
     return lighting(c.obj()->mat(),
                     w.light(),
-                    c.point(), c.eye_v(), c.normal_v());
+                    c.over_point(), c.eye_v(), c.normal_v(),
+                    is_shadowed(w, c.over_point()));
 }
 
 template<typename Point, typename Vector>

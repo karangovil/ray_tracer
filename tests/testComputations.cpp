@@ -40,4 +40,14 @@ TEST_CASE("world should work")
         REQUIRE(c.inside());
     }
 
+    SECTION("over_point should work")
+    {
+        ray<double, double> r {point(0.0, 0.0, -5.0), vector(0.0, 0.0, 1.0)};
+        std::shared_ptr<object> s = std::make_shared<sphere>();
+        s->set_transform(translation(0.0, 0.0, 1.0));
+        intersection i {s, 5.0};
+        computations c {i, r};
+        REQUIRE(c.over_point().z < -TOLERANCE_F / 2.0);
+        REQUIRE(c.point().z > c.over_point().z);
+    }
 }
