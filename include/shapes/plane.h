@@ -1,5 +1,5 @@
-#ifndef SPHERE_H
-#define SPHERE_H
+#ifndef PLANE_H
+#define PLANE_H
 
 #include <memory>
 
@@ -12,15 +12,13 @@
 namespace RT
 {
 
-struct ray;
-struct world;
-
-struct sphere : public object
+// only XZ plane is implemented with a normal in y direction
+// as other orientations can be achieved via transformation matrices
+struct plane : public object
 {
 public:
-    sphere();
-    sphere(tuple center, num_t radius);
-    sphere(material mat);
+    plane();
+    plane(material mat);
 
     std::shared_ptr<object> create() const override;
     std::shared_ptr<object> clone() const override;
@@ -33,23 +31,18 @@ public:
     void set_transform(matrix4x4 t) override;
     void set_material(struct material m) override;
 private:
-    tuple m_center;
-    num_t m_radius;
     material m_material;
     matrix4x4 m_transform;
-
+    
     tuple local_normal_at(tuple local_point) const override;
     opt_int_v_t local_intersect(ray const& local_ray) const override;
 };
 
 inline
-auto operator==(sphere const& s1, sphere const& s2) -> bool
+auto operator==(plane const& p1, plane const& p2) -> bool
 {
-    return (s1.radius() == s2.radius()) &&
-           (s1.center() == s2.center()) &&
-           (s1.transform() == s2.transform()) &&
-           (s1.mat() == s2.mat());
+    return (p1.transform() == p2.transform()) &&
+           (p1.mat() == p2.mat());
 }
-
 } // end namespace RT
 #endif
