@@ -1,6 +1,9 @@
 #include "catch.hpp"
 
 #include "graphics/computations.h"
+#include "graphics/ray.h"
+#include "graphics/intersection.h"
+#include "math/transformations.h"
 #include "shapes/sphere.h"
 
 using namespace Catch::literals;
@@ -10,7 +13,7 @@ TEST_CASE("world should work")
 {
     SECTION("computations initialization should work")
     {
-        ray<double, double> r {point(0.0, 0.0, -5.0), vector(0.0, 0.0, 1.0)};
+        ray r {point(0.0, 0.0, -5.0), vector(0.0, 0.0, 1.0)};
         std::shared_ptr<object> s = std::make_shared<sphere>();
         intersection i {s, 4.0};
 
@@ -26,7 +29,7 @@ TEST_CASE("world should work")
 
     SECTION("computations initialization inside should work")
     {
-        ray<double, double> r {point(0.0, 0.0, 0.0), vector(0.0, 0.0, 1.0)};
+        ray r {point(0.0, 0.0, 0.0), vector(0.0, 0.0, 1.0)};
         std::shared_ptr<object> s = std::make_shared<sphere>();
         intersection i {s, 1.0};
 
@@ -42,7 +45,7 @@ TEST_CASE("world should work")
 
     SECTION("over_point should work")
     {
-        ray<double, double> r {point(0.0, 0.0, -5.0), vector(0.0, 0.0, 1.0)};
+        ray r {point(0.0, 0.0, -5.0), vector(0.0, 0.0, 1.0)};
         std::shared_ptr<object> s = std::make_shared<sphere>();
         s->set_transform(translation(0.0, 0.0, 1.0));
         intersection i {s, 5.0};

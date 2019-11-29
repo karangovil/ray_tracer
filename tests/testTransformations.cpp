@@ -94,7 +94,7 @@ TEST_CASE("matrix transformations should work")
         auto from = point(0.0, 0.0, 0.0);
         auto to = point(0.0, 0.0, -1.0);
         auto up = vector(0.0, 1.0, 0.0);
-        REQUIRE(view_transform(from, to, up) == matrix4x4<double> {});
+        REQUIRE(view_transform(from, to, up) == matrix4x4 {});
     }
     
     SECTION("reflection view transform should work")
@@ -119,7 +119,7 @@ TEST_CASE("matrix transformations should work")
         auto to = point(4.0, -2.0, 8.0);
         auto up = vector(1.0, 1.0, 0.0);
 
-        matrix4x4<double> expected;
+        matrix4x4 expected;
 
         expected(0,0) = -0.507093;
         expected(0,1) = 0.507093;

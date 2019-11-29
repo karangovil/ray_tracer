@@ -1,8 +1,8 @@
 #ifndef MATERIAL_H
 #define MATERIAL_H
 
+#include "common.h"
 #include "graphics/colors.h"
-#include "utils/equality.h"
 
 namespace RT
 {
@@ -10,41 +10,29 @@ namespace RT
 struct material
 {
 public:
-    material()
-        : m_ambient {0.1}, m_diffuse {0.9}, m_specular {0.9},
-          m_shininess {200.0}, m_color {1.0f, 1.0f, 1.0f} {}
+    material();
+    material(num_t amb, num_t diff, num_t spec, num_t shiny, color col);
 
-    material(float amb, float diff, float spec, float shiny, color<float> col)
-        : m_ambient {amb}, m_diffuse {diff}, m_specular {spec},
-          m_shininess {shiny}, m_color {col} {}
+    num_t ambient() const { return m_ambient; }
+    num_t diffuse() const { return m_diffuse; }
+    num_t specular() const { return m_specular; }
+    num_t shininess() const { return m_shininess; }
+    color col() const { return m_color; }
 
-    float ambient() const { return m_ambient; }
-    float diffuse() const { return m_diffuse; }
-    float specular() const { return m_specular; }
-    float shininess() const { return m_shininess; }
-    RT::color<float> color() const { return m_color; }
-
-    void set_ambient(float amb) { m_ambient = amb; }
-    void set_diffuse(float diff) { m_diffuse = diff; }
-    void set_specular(float spec) { m_specular = spec; }
-    void set_shininess(float shiny) { m_shininess = shiny; }
-    void set_color(RT::color<float> col) { m_color = col; }
+    void set_ambient(num_t amb) { m_ambient = amb; }
+    void set_diffuse(num_t diff) { m_diffuse = diff; }
+    void set_specular(num_t spec) { m_specular = spec; }
+    void set_shininess(num_t shiny) { m_shininess = shiny; }
+    void set_color(color col) { m_color = col; }
 private:
-    float m_ambient;
-    float m_diffuse;
-    float m_specular;
-    float m_shininess;
-    RT::color<float> m_color;
+    num_t m_ambient;
+    num_t m_diffuse;
+    num_t m_specular;
+    num_t m_shininess;
+    color m_color;
 };
 
-auto operator==(material m1, material m2) -> bool
-{
-    return AlmostEquals(m1.ambient(), m2.ambient()) &&
-           AlmostEquals(m1.diffuse(), m2.diffuse()) &&
-           AlmostEquals(m1.specular(), m2.specular()) &&
-           AlmostEquals(m1.shininess(), m2.shininess()) &&
-           (m1.color() == m2.color());
-}
+bool operator==(material const& m1, material const& m2);
 
 } //end namespace RT
 #endif

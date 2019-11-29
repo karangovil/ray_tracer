@@ -1,4 +1,5 @@
 #include "graphics/ray.h"
+#include "graphics/light.h"
 #include "math/tuple.h"
 #include "graphics/canvas.h"
 #include "graphics/intersection.h"
@@ -13,7 +14,7 @@ using namespace RT;
 
 int main()
 {
-    auto ray_origin = point(0, 0, -5);
+    auto ray_origin = point(0.0, 0.0, -5.0);
 
     int wall_z = 10;
 
@@ -25,7 +26,7 @@ int main()
 
     double half = wall_size / 2.0;
 
-    color<float> red {1, 0, 0};
+    color red {1, 0, 0};
 
     canvas c {canvas_pixels, canvas_pixels};
 
@@ -36,7 +37,7 @@ int main()
     s->set_material(m);
 
     auto light_position = point(-10.0, 10.0, -10.0);
-    color light_color {1.0f, 1.0f, 1.0f};
+    color light_color {1.0, 1.0, 1.0};
     point_light light {light_position, light_color};
 
     for (size_t y = 0; y < canvas_pixels; ++y)
@@ -45,15 +46,15 @@ int main()
         for (size_t x = 0; x < canvas_pixels; ++x)
         {
             auto world_x = -half + pixel_size * x;
-            auto pos = point<double>(world_x, world_y, wall_z);
-            ray<int, double> r {ray_origin, normalize(pos - ray_origin)};
-            auto xs = intersect(s, r);
+            auto pos = point(world_x, world_y, wall_z);
+            ray r {ray_origin, normalize(pos - ray_origin)};
+            auto xs = s->intersect(r);
             if (xs.has_value())
             {
                 auto h = hit(xs.value());
                 if (h.has_value())
                 {
-                    auto p = position(r, h.value().t());
+                    auto p = r.position(h.value().t());
                     auto normal = s->normal_at(p);
                     auto eye_v = -r.direction();
                     auto col = lighting(s->mat(), light, p, eye_v, normal, false);

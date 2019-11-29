@@ -1,6 +1,10 @@
 #include "catch.hpp"
 
 #include "graphics/camera.h"
+#include "graphics/ray.h"
+#include "graphics/canvas.h"
+#include "graphics/world.h"
+#include "math/transformations.h"
 
 using namespace Catch::literals;
 using namespace RT;
@@ -13,7 +17,7 @@ TEST_CASE("camera should work")
         REQUIRE(c.hsize() == 160);
         REQUIRE(c.vsize() == 120);
         REQUIRE(c.fov() == M_PI / 2.0);
-        REQUIRE(c.transform() == matrix4x4<double> {});
+        REQUIRE(c.transform() == matrix4x4 {});
     }
     
     SECTION("camera pixel_size should work")
@@ -62,6 +66,6 @@ TEST_CASE("camera should work")
         auto up = vector(0.0, 1.0, 0.0);
         c.set_transform(view_transform(from, to, up));
         auto image = render(c, w);
-        REQUIRE(pixel_at(image, 5, 5) == color {0.38066f, 0.47583f, 0.2855f});
+        REQUIRE(pixel_at(image, 5, 5) == color {0.38066, 0.47583, 0.2855});
     }
 }

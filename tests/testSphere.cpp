@@ -18,7 +18,7 @@ TEST_CASE("sphere should work")
     SECTION("creating a sphere should work")
     {
         double radius = 5.0;
-        tuple<double> center {1.0, 2.0, 3.0};
+        tuple center {1.0, 2.0, 3.0};
         sphere s {center, radius};
         REQUIRE(s.radius() == radius);
         REQUIRE(s.center() == center);
@@ -38,9 +38,9 @@ TEST_CASE("sphere should work")
     SECTION("normals should work")
     {
         sphere s;
-        REQUIRE(s.normal_at(point<double>(1, 0, 0)) == vector(1, 0, 0));
-        REQUIRE(s.normal_at(point<double>(0, 1, 0)) == vector(0, 1, 0));
-        REQUIRE(s.normal_at(point<double>(0, 0, 1)) == vector(0, 0, 1));
+        REQUIRE(s.normal_at(point(1, 0, 0)) == vector(1, 0, 0));
+        REQUIRE(s.normal_at(point(0, 1, 0)) == vector(0, 1, 0));
+        REQUIRE(s.normal_at(point(0, 0, 1)) == vector(0, 0, 1));
         
         s.set_transform(translation(0.0, 1.0, 0.0)); 
         auto n1 = s.normal_at(point(0.0, 1.70711, -0.70711)); 

@@ -3,6 +3,7 @@
 
 #include <memory>
 
+#include "common.h"
 #include "shapes/material.h"
 #include "shapes/object.h"
 #include "math/tuple.h"
@@ -11,52 +12,38 @@
 namespace RT
 {
 
+struct ray;
+struct world;
+
 struct sphere : public object
 {
 public:
-    sphere()
-        : m_center {point(0.0, 0.0, 0.0)},
-          m_radius {1.0} {}
+    sphere();
+    sphere(tuple center, num_t radius);
+    sphere(material mat);
 
-    sphere(tuple<double> center, double radius)
-        : m_center {center},
-          m_radius {radius} {}
-    
-    sphere(material mat)
-        : m_center {point(0.0, 0.0, 0.0)},
-          m_radius {1.0},
-          m_material {mat} {}
+    std::shared_ptr<object> create() const override;
+    std::shared_ptr<object> clone() const override;
 
-    std::shared_ptr<object> create() const
-    { return std::make_shared<sphere>(); };
+    num_t radius() const;
+    tuple center() const;
+    matrix4x4 transform() const override;
+    material const& mat() const override;
 
-    std::shared_ptr<object> clone() const
-    { return std::make_shared<sphere>(*this); }
+    void set_transform(matrix4x4 t) override;
+    void set_material(struct material m) override;
 
-    double radius() const { return m_radius; }
-    tuple<double> center() const { return m_center; }
-    matrix4x4<double> transform() const { return m_transform; }
-    material const& mat() const { return m_material; }
-
-    void set_transform(matrix4x4<double> t) { m_transform = t; }
-    void set_material(struct material m) { m_material = m; }
-
-    tuple<double> normal_at(tuple<double> world_point) const
-    {
-        auto object_point = inverse(m_transform) * world_point;
-        auto object_normal = object_point - m_center;
-        auto world_normal = transpose(inverse(m_transform)) * object_normal;
-        world_normal.w = 0.0;
-        return normalize(world_normal);
-    }
+    tuple normal_at(tuple world_point) const override;
+    opt_int_v_t intersect(ray const& r) const override;
 
 private:
-    tuple<double> m_center;
-    double m_radius;
-    matrix4x4<double> m_transform;
-    struct material m_material;
+    tuple m_center;
+    num_t m_radius;
+    material m_material;
+    matrix4x4 m_transform;
 };
 
+inline
 auto operator==(sphere const& s1, sphere const& s2) -> bool
 {
     return (s1.radius() == s2.radius()) &&

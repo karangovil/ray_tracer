@@ -9,7 +9,7 @@ TEST_CASE("points and vectors should work")
 {
     SECTION("tuple with w = 1.0 is a point")
     {
-        tuple<float> a { 4.3, -4.2, 3.1, 1.0 };
+        tuple a { 4.3, -4.2, 3.1, 1.0 };
         REQUIRE(a.x == 4.3_a);
         REQUIRE(a.y == -4.2_a);
         REQUIRE(a.z == 3.1_a);
@@ -20,7 +20,7 @@ TEST_CASE("points and vectors should work")
     
     SECTION("tuple with w = 0.0 is a vector")
     {
-        tuple<float> a { 4.3, -4.2, 3.1, 0.0 };
+        tuple a { 4.3, -4.2, 3.1, 0.0 };
         REQUIRE(a.x == 4.3_a);
         REQUIRE(a.y == -4.2_a);
         REQUIRE(a.z == 3.1_a);
@@ -32,22 +32,22 @@ TEST_CASE("points and vectors should work")
     SECTION("point() creates tuple with w = 1.0")
     {
         auto p = point(4, -4, 3);
-        tuple<int> tup { 4, -4, 3, 1 };
+        tuple tup { 4, -4, 3, 1 };
         REQUIRE(p == tup);
     }
     
     SECTION("vector() creates tuple with w = 0.0")
     {
         auto v = vector(4, -4, 3);
-        tuple<int> tup { 4, -4, 3, 0 };
+        tuple tup { 4, -4, 3, 0 };
         REQUIRE(v == tup);
     }
     
     SECTION("adding tuples should work")
     {
-        tuple<int> t1 { 3, -2, 5, 1 };
-        tuple<int> t2 { -2, 3, 1, 0 };
-        REQUIRE((t1 + t2) == tuple<int> { 1, 1, 6, 1 });
+        tuple t1 { 3, -2, 5, 1 };
+        tuple t2 { -2, 3, 1, 0 };
+        REQUIRE((t1 + t2) == tuple { 1, 1, 6, 1 });
     }
 
     SECTION("subtracting tuples should work")
@@ -74,11 +74,11 @@ TEST_CASE("points and vectors should work")
 
     SECTION("scalar multiplication and division should work")
     {
-        tuple<int> a { 1, -2, 3, -4 };
-        REQUIRE((3.5f * a) == tuple<float> { 3.5, -7, 10.5, -14 });
-        REQUIRE((a * 3.5f) == tuple<float> { 3.5, -7, 10.5, -14 });
+        tuple a { 1, -2, 3, -4 };
+        REQUIRE((3.5f * a) == tuple { 3.5, -7, 10.5, -14 });
+        REQUIRE((a * 3.5f) == tuple { 3.5, -7, 10.5, -14 });
         
-        REQUIRE((a / 2.0f) == tuple<float> { 0.5, -1, 1.5, -2 });
+        REQUIRE((a / 2.0f) == tuple { 0.5, -1, 1.5, -2 });
     }
 
     SECTION("magnitude should work")

@@ -50,6 +50,8 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 
 add_subdirectory(src)
 
+add_subdirectory(examples)
+
 add_subdirectory(tests)
 
 add_subdirectory(libs/catch)

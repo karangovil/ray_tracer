@@ -10,16 +10,17 @@ namespace RT
 struct point_light
 {
 public:
-    point_light(tuple<double> pos, color<float> intensity)
+    point_light(tuple pos, color intensity)
         : m_position {pos}, m_intensity {intensity} {}
 
-    tuple<double> position() const { return m_position; }
-    color<float> intensity() const { return m_intensity; }
+    tuple position() const { return m_position; }
+    color intensity() const { return m_intensity; }
 private:
-    tuple<double> m_position;
-    color<float> m_intensity;
+    tuple m_position;
+    color m_intensity;
 };
 
+inline
 auto operator==(point_light const& l1, point_light const& l2) -> bool
 {
     return (l1.position() == l2.position()) &&

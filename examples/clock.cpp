@@ -12,7 +12,7 @@ int main()
 
     constexpr size_t radius = 3 * canvasSide / 8;
 
-    const color<float> red { 1.0, 0.0, 0.0 };
+    const color red { 1.0, 0.0, 0.0 };
     const auto twelve = point(0, 1, 0);
     for (int i = 0; i < 12; ++i)
     {

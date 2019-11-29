@@ -1,111 +1,36 @@
 #ifndef REFLECTION_H
 #define REFLECTION_H
 
-#include "math/tuple.h"
-#include "graphics/colors.h"
-#include "shapes/material.h"
-#include "graphics/light.h"
-#include "graphics/world.h"
-#include "graphics/computations.h"
-
 namespace RT
 {
 
-template<typename T>
-auto reflect(tuple<T> in, tuple<T> normal)
-{ return (in - normal * 2 * dot(in, normal)); }
+struct world;
+struct ray;
+struct color;
+struct tuple;
+struct material;
+struct point_light;
+struct computations;
 
-template<typename T>
-auto is_shadowed(world w, tuple<T> pt) -> bool
-{
-    auto v = w.light().position() - pt;
-    auto distance = magnitude(v);
-    auto direction = normalize(v);
+// compute reflected vector
+tuple reflect(tuple in, tuple normal);
 
-    auto is_shadowed_res = false;
+// check if a point is shadowed
+bool is_shadowed(world w, tuple pt);
 
-    ray<T, double> r {pt, direction};
-    auto ints = intersect_world(w, r);
-    if (ints.has_value())
-    {
-        auto h = hit(ints.value());
-        if (h.has_value() && h.value().t() < distance)
-            is_shadowed_res = true;
-    }
-    return is_shadowed_res;
-}
-
-inline
-auto lighting(material m,
+// compute lighting of a point using Phong reflection model
+color lighting(material m,
               point_light l,
-              tuple<double> position,
-              tuple<double> eye_v,
-              tuple<double> normal_v,
-              bool in_shadow)
-{
-    color<float> effective_color = m.color() * l.intensity();
-    auto light_v = normalize(l.position() - position);
-    color<float> ambient = effective_color * m.ambient();
-    if (in_shadow)
-    { return ambient; }
-    else
-    {
-        float light_dot_normal = dot(light_v, normal_v);
+              tuple position,
+              tuple eye_v,
+              tuple normal_v,
+              bool in_shadow);
 
-        color<float> diffuse, specular;
+// compute shading intensity for hit points
+color shade_hit(world w, computations c);
 
-        color<float> black {0.0, 0.0, 0.0};
-
-        if (light_dot_normal < 0.0)
-        {
-            diffuse = black;
-            specular = black;
-        }
-        else
-        {
-            diffuse = effective_color * m.diffuse() * light_dot_normal;
-            auto reflect_v = reflect(-light_v, normal_v);
-            auto reflect_dot_eye = dot(reflect_v, eye_v);
-            if (reflect_dot_eye <= 0.0)
-                specular = black;
-            else
-            {
-                float factor = std::pow(reflect_dot_eye, m.shininess());
-                specular = l.intensity() * m.specular() * factor;
-            }
-        }
-
-        return ambient + diffuse + specular;
-    }
-}
-
-inline
-auto shade_hit(world w, computations c)
-{
-    return lighting(c.obj()->mat(),
-                    w.light(),
-                    c.over_point(), c.eye_v(), c.normal_v(),
-                    is_shadowed(w, c.over_point()));
-}
-
-template<typename Point, typename Vector>
-auto color_at(world w, ray<Point, Vector> r)
-{
-    auto ints = intersect_world(w, r);
-    if (ints.has_value())
-    {
-        auto h = hit(ints.value());
-        if (h.has_value())
-        {
-            computations c {h.value(), r};
-            return shade_hit(w, c);
-        }
-        else
-        { return color {0.0f, 0.0f, 0.0f}; }
-    }
-    else
-    { return color {0.0f, 0.0f, 0.0f}; }
-}
+// compute color at a point where a ray hits an object
+color color_at(world w, ray r);
 
 } // end namespace RT
 #endif

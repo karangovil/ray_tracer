@@ -7,20 +7,20 @@ using namespace RT;
 
 struct projectile
 {
-    projectile(tuple<double> pos, tuple<double> vel)
+    projectile(tuple pos, tuple vel)
         : position(pos), velocity(vel) {}
 
-    tuple<double> position;
-    tuple<double> velocity;
+    tuple position;
+    tuple velocity;
 };
 
 struct environment
 {
-    environment(tuple<double> grav, tuple<double> wind)
+    environment(tuple grav, tuple wind)
         : gravity(grav), wind(wind) {}
 
-    tuple<double> gravity;
-    tuple<double> wind;
+    tuple gravity;
+    tuple wind;
 };
 
 auto tick(environment env, projectile proj) -> projectile
@@ -49,7 +49,7 @@ int main()
 
     canvas c { canvas_x, canvas_y };
 
-    color<float> red {1.0, 0.0, 0.0 };
+    color red {1.0, 0.0, 0.0 };
 
     while (true)
     {

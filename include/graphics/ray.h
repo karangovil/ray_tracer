@@ -1,33 +1,27 @@
 #ifndef RAY_H
 #define RAY_H
 
+#include "common.h"
 #include "math/tuple.h"
-#include "math/matrix4x4.h"
 
 namespace RT
 {
 
-template<typename Point, typename Vector>
+struct matrix4x4;
+
 struct ray
 {
 public:
-    ray(tuple<Point> origin, tuple<Vector> direction)
-        : m_origin {origin}, m_direction {direction} {}
+    ray(tuple origin, tuple direction);
 
-    tuple<Point> origin() const { return m_origin; }
-    tuple<Vector> direction() const { return m_direction; }
+    tuple origin() const;
+    tuple direction() const;
+    tuple position(num_t const t) const;
+    ray transform(matrix4x4 const& m) const;
 private:
-    tuple<Point> m_origin;
-    tuple<Vector> m_direction;
+    tuple m_origin;
+    tuple m_direction;
 };
-
-template<typename Point, typename Vector>
-auto position(ray<Point, Vector> const& r, double const t)
-{ return r.origin() + r.direction() * t; }
-
-template<typename Point, typename Vector, typename T>
-auto transform(ray<Point, Vector> r, matrix4x4<T> m)
-{ return ray { m * r.origin(), m * r.direction() }; }
 
 } // end namespace RT
 

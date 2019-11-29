@@ -3,6 +3,8 @@
 #include "graphics/world.h"
 #include "graphics/ray.h"
 #include "graphics/intersection.h"
+#include "shapes/sphere.h"
+#include "math/transformations.h"
 
 using namespace Catch::literals;
 using namespace RT;
