@@ -7,7 +7,7 @@ namespace RT
 
 material::material()
     : m_ambient {0.1}, m_diffuse {0.9}, m_specular {0.9},
-      m_shininess {200.0}, m_color {1.0f, 1.0f, 1.0f} {}
+      m_shininess {200.0}, m_color {1.0, 1.0, 1.0} {}
 
 material::material(num_t amb, num_t diff, num_t spec, num_t shiny, color col)
     : m_ambient {amb}, m_diffuse {diff}, m_specular {spec},
