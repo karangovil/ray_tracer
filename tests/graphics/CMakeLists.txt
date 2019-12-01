@@ -1,0 +1,11 @@
+enable_testing()
+
+add_new_test(testColors)
+add_new_test(testCanvas)
+add_new_test(testReflection)
+add_new_test(testRay)
+add_new_test(testIntersection)
+add_new_test(testLight)
+add_new_test(testWorld)
+add_new_test(testComputations)
+add_new_test(testCamera)
