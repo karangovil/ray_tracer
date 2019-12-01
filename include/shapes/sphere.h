@@ -22,8 +22,8 @@ public:
     sphere(tuple center, num_t radius);
     sphere(material mat);
 
-    std::shared_ptr<object> create() const override;
-    std::shared_ptr<object> clone() const override;
+    // std::shared_ptr<object> create() const override;
+    // std::shared_ptr<object> clone() const override;
 
     num_t radius() const;
     tuple center() const;

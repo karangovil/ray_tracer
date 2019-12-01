@@ -20,8 +20,8 @@ struct object : public std::enable_shared_from_this<object>
 public:
     virtual ~object() = default;
 
-    virtual std::shared_ptr<object> create() const = 0;
-    virtual std::shared_ptr<object> clone() const = 0;
+    // virtual std::shared_ptr<object> create() const = 0;
+    // virtual std::shared_ptr<object> clone() const = 0;
 
     virtual matrix4x4 transform() const = 0;
     virtual material const& mat() const = 0;

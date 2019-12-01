@@ -15,11 +15,11 @@ plane::plane(material mat)
     : m_material {mat},
       m_transform {matrix4x4 {}} {}
 
-std::shared_ptr<object> plane::create() const
-{ return std::make_shared<plane>(); };
-
-std::shared_ptr<object> plane::clone() const
-{ return std::make_shared<plane>(*this); }
+// std::shared_ptr<object> plane::create() const
+// { return std::make_shared<plane>(); };
+//
+// std::shared_ptr<object> plane::clone() const
+// { return std::make_shared<plane>(*this); }
 
 matrix4x4 plane::transform() const { return m_transform; }
 material const& plane::mat() const { return m_material; }

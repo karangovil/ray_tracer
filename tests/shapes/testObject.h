@@ -17,11 +17,11 @@ public:
           m_transform {matrix4x4 {}},
           m_saved_ray {ray {point(0, 0, 0), vector(1, 0, 0)}} {}
 
-    std::shared_ptr<object> create() const
-    { return std::make_shared<test_object>(); }
-
-    std::shared_ptr<object> clone() const
-    { return std::make_shared<test_object>(*this); }
+    // std::shared_ptr<object> create() const
+    // { return std::make_shared<test_object>(); }
+    //
+    // std::shared_ptr<object> clone() const
+    // { return std::make_shared<test_object>(*this); }
     
     matrix4x4 transform() const { return m_transform; }
     material const& mat() const { return m_material; }

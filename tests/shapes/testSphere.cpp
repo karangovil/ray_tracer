@@ -65,7 +65,6 @@ TEST_CASE("sphere should work")
         m.set_ambient(1.0);
         s.set_material(m);
         REQUIRE(m == s.mat());
-
     }
 
 }

@@ -24,11 +24,11 @@ sphere::sphere(material mat)
       m_material {mat},
       m_transform {matrix4x4 {}} {}
 
-std::shared_ptr<object> sphere::create() const
-{ return std::make_shared<sphere>(); };
-
-std::shared_ptr<object> sphere::clone() const
-{ return std::make_shared<sphere>(*this); }
+// std::shared_ptr<object> sphere::create() const
+// { return std::make_shared<sphere>(); };
+//
+// std::shared_ptr<object> sphere::clone() const
+// { return std::make_shared<sphere>(*this); }
 
 num_t sphere::radius() const { return m_radius; }
 tuple sphere::center() const { return m_center; }
