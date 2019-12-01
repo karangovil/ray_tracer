@@ -1,5 +1,7 @@
 #include "catch.hpp"
 
+#include <sstream>
+
 #include "math/matrix4x4.h"
 
 using namespace Catch::literals;
@@ -7,6 +9,21 @@ using namespace RT;
 
 TEST_CASE("matrix4x4 operations should work")
 {
+    SECTION("matrix printing should work")
+    {
+        matrix4x4 m {};
+        std::stringstream ss;
+        ss << m;
+        REQUIRE(ss.str() == "1, 0, 0, 0, \n0, 1, 0, 0, \n0, 0, 1, 0, \n0, 0, 0, 1, \n");
+    }
+
+    SECTION("matrix inequality should work")
+    {
+        matrix4x4 m1, m2;
+        m1(2,3) = 4;
+        REQUIRE_FALSE(m1 == m2);
+    }
+
     SECTION("default initialization should work")
     {
         matrix4x4 m;

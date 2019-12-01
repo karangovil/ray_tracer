@@ -1,5 +1,7 @@
 #include "catch.hpp"
 
+#include <sstream>
+
 #include "math/tuple.h"
 
 using namespace Catch::literals;
@@ -7,6 +9,14 @@ using namespace RT;
 
 TEST_CASE("points and vectors should work")
 {
+    SECTION("tuple printing should work")
+    {
+        tuple t {1, 2, 3, 1};
+        std::stringstream ss;
+        ss << t;
+        REQUIRE(ss.str() == "(1, 2, 3, 1)\n");
+    }
+
     SECTION("tuple with w = 1.0 is a point")
     {
         tuple a { 4.3, -4.2, 3.1, 1.0 };

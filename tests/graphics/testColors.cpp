@@ -1,5 +1,7 @@
 #include "catch.hpp"
 
+#include <sstream>
+
 #include "graphics/colors.h"
 
 using namespace Catch::literals;
@@ -7,6 +9,15 @@ using namespace RT;
 
 TEST_CASE("points and vectors should work")
 {
+
+    SECTION("printing colors should work")
+    {
+        color c {1, 0.4, 0.8};
+        std::stringstream ss;
+        ss << c;
+        REQUIRE(ss.str() == "(R: 1, G: 0.4, B: 0.8)\n");
+    }
+
     SECTION("colors should work")
     {
         color c { -0.5, 0.4, 1.7 };

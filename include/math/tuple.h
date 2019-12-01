@@ -19,7 +19,7 @@ struct tuple
 inline
 std::ostream& operator<<(std::ostream& os, tuple const& t)
 {
-    os << "(" << t.x << ", " << t.y << ", " << t.z << ")\n";
+    os << "(" << t.x << ", " << t.y << ", " << t.z << ", " << t.w << ")\n";
     return os;
 }
 

@@ -32,7 +32,7 @@ TEST_CASE("testObject should work")
         o.set_transform(scaling(2, 2, 2));
         ray r {point(0, 0, -5), vector(0, 0, 1)};
         o.intersect(r);
-        // REQUIRE(o.saved_ray().origin() == point(0, 0, -2.5));
+        REQUIRE(o.saved_ray().origin() == point(0, 0, -2.5));
         REQUIRE(o.saved_ray().direction() == vector(0, 0, 0.5));
     }
     
