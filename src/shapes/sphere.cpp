@@ -45,7 +45,7 @@ tuple sphere::local_normal_at(tuple const& local_point) const
     return normalize(local_normal);
 }
 
-opt_int_v_t sphere::local_intersect(ray const& local_ray) const
+opt_int_v_t sphere::local_intersect(ray const& local_ray)
 {
     auto sphere_to_ray = local_ray.origin() - m_center;
     auto a = dot(local_ray.direction(), local_ray.direction());

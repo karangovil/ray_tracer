@@ -8,6 +8,7 @@
 #include "graphics/light.h"
 #include "shapes/material.h"
 #include "shapes/object.h"
+#include "shapes/sphere.h"
 #include "graphics/world.h"
 #include "graphics/ray.h"
 #include "graphics/colors.h"
@@ -36,27 +37,27 @@ TEST_CASE("reflections should work")
     
     SECTION("lighting should work")
     {
-        material m;
+        std::shared_ptr<object> obj = std::make_shared<sphere>();
         auto pos = point(0.0, 0.0, 0.0);
         auto eye_v = vector(0.0, 0.0, -1.0);
         auto normal_v = vector(0.0, 0.0, -1.0);
         point_light light {point(0.0, 0.0, -10.0), color {1.0, 1.0, 1.0}};
 
-        REQUIRE(lighting(m, light, pos, eye_v, normal_v, false) == color {1.9, 1.9, 1.9});
+        REQUIRE(lighting(obj, light, pos, eye_v, normal_v, false) == color {1.9, 1.9, 1.9});
         auto eye_v_1 = vector(0.0, std::sqrt(2) / 2, std::sqrt(2) / 2);
-        REQUIRE(lighting(m, light, pos, eye_v_1, normal_v, false) == color {1.0, 1.0, 1.0});
+        REQUIRE(lighting(obj, light, pos, eye_v_1, normal_v, false) == color {1.0, 1.0, 1.0});
         
         point_light light_1 {point(0.0, 10.0, -10.0), color {1.0, 1.0, 1.0}};
-        REQUIRE(lighting(m, light_1, pos, eye_v_1, normal_v, false) == color {0.7364, 0.7364, 0.7364});
+        REQUIRE(lighting(obj, light_1, pos, eye_v_1, normal_v, false) == color {0.7364, 0.7364, 0.7364});
         
         auto eye_v_2 = vector(0.0, -std::sqrt(2) / 2, -std::sqrt(2) / 2);
-        REQUIRE(lighting(m, light_1, pos, eye_v_2, normal_v, false) == color {1.6364, 1.6364, 1.6364});
+        REQUIRE(lighting(obj, light_1, pos, eye_v_2, normal_v, false) == color {1.6364, 1.6364, 1.6364});
         
         point_light light_2 {point(0.0, 0.0, 10.0), color {1.0, 1.0, 1.0}};
-        REQUIRE(lighting(m, light_2, pos, eye_v, normal_v, false) == color {0.1, 0.1, 0.1});
+        REQUIRE(lighting(obj, light_2, pos, eye_v, normal_v, false) == color {0.1, 0.1, 0.1});
 
         // lighting in shadow should work
-        REQUIRE(lighting(m, light_1, pos, eye_v, normal_v, true) == color {0.1, 0.1, 0.1});
+        REQUIRE(lighting(obj, light_1, pos, eye_v, normal_v, true) == color {0.1, 0.1, 0.1});
     }
 
     SECTION("is_shadowed should work")

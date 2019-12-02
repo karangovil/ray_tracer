@@ -37,7 +37,7 @@ private:
     tuple local_normal_at(tuple const& lpt) const
     { return vector(lpt.x, lpt.y, lpt.z); }
     
-    opt_int_v_t local_intersect(ray const& local_ray) const
+    opt_int_v_t local_intersect(ray const& local_ray)
     { m_saved_ray = local_ray; return std::nullopt; }
 };
 

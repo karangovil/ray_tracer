@@ -7,7 +7,7 @@
 namespace RT
 {
 
-intersection::intersection(std::shared_ptr<const object> const& obj, double t)
+intersection::intersection(std::shared_ptr<object> const& obj, double t)
     : m_obj {obj}, m_t {t} {}
 
 intersection::intersection(intersection const& i)

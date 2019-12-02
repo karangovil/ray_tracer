@@ -16,11 +16,14 @@ tuple object::normal_at(tuple const& world_point) const
     return normalize(world_normal);
 }
 
-opt_int_v_t object::intersect(ray const& world_ray) const
+opt_int_v_t object::intersect(ray const& world_ray) 
 {
     ray local_ray = world_ray.transform(inverse(transform()));
     return local_intersect(local_ray);
 }
+
+std::shared_ptr<object> object::get_object_sp()
+{ return static_pointer_cast<object>(shared_from_this()); }
 
 std::shared_ptr<const object> object::get_object_sp() const
 { return static_pointer_cast<const object>(shared_from_this()); }

@@ -30,12 +30,13 @@ public:
     virtual void set_material(material const& m) = 0;
     
     virtual tuple normal_at(tuple const& world_point) const;
-    virtual opt_int_v_t intersect(ray const& world_ray) const;
+    virtual opt_int_v_t intersect(ray const& world_ray);
+    virtual std::shared_ptr<object> get_object_sp();
     virtual std::shared_ptr<const object> get_object_sp() const;
 
 private:
     virtual tuple local_normal_at(tuple const& local_point) const = 0;
-    virtual opt_int_v_t local_intersect(ray const& local_ray) const = 0;
+    virtual opt_int_v_t local_intersect(ray const& local_ray) = 0;
 };
 
 } // end namespace RT

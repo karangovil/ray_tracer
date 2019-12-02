@@ -27,7 +27,7 @@ public:
     auto inside() const { return m_inside; }
 private:
     double m_t;
-    std::shared_ptr<const object> m_obj;
+    std::shared_ptr<object> m_obj;
     tuple m_point, m_over_point, m_eye_v, m_normal_v;
     bool m_inside;
 };

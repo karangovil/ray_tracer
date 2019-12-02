@@ -14,10 +14,10 @@
 namespace RT
 {
 
-tuple reflect(tuple in, tuple normal)
+tuple reflect(tuple const& in, tuple const& normal)
 { return (in - normal * 2 * dot(in, normal)); }
 
-bool is_shadowed(world w, tuple pt)
+bool is_shadowed(world const& w, tuple const& pt)
 {
     auto v = w.light().position() - pt;
     auto distance = magnitude(v);
@@ -36,21 +36,21 @@ bool is_shadowed(world w, tuple pt)
     return is_shadowed_res;
 }
 
-color lighting(material m,
-              point_light l,
-              tuple position,
-              tuple eye_v,
-              tuple normal_v,
-              bool in_shadow)
+color lighting(std::shared_ptr<object> const& obj,
+               point_light const& l,
+               tuple const& position,
+               tuple const& eye_v,
+               tuple const& normal_v,
+               bool const in_shadow)
 {
     color m_col;
-    if (m.get_pattern() != nullptr)
-        m_col = m.get_pattern()->pattern_at(position);
+    if (obj->mat().get_pattern() != nullptr)
+        m_col = obj->mat().get_pattern()->pattern_at_object(obj, position);
     else
-        m_col = m.col();
+        m_col = obj->mat().col();
     color effective_color = m_col * l.intensity();
     auto light_v = normalize(l.position() - position);
-    color ambient = effective_color * m.ambient();
+    color ambient = effective_color * obj->mat().ambient();
     if (in_shadow)
     { return ambient; }
     else
@@ -68,15 +68,15 @@ color lighting(material m,
         }
         else
         {
-            diffuse = effective_color * m.diffuse() * light_dot_normal;
+            diffuse = effective_color * obj->mat().diffuse() * light_dot_normal;
             auto reflect_v = reflect(-light_v, normal_v);
             auto reflect_dot_eye = dot(reflect_v, eye_v);
             if (reflect_dot_eye <= 0.0)
                 specular = black;
             else
             {
-                float factor = std::pow(reflect_dot_eye, m.shininess());
-                specular = l.intensity() * m.specular() * factor;
+                float factor = std::pow(reflect_dot_eye, obj->mat().shininess());
+                specular = l.intensity() * obj->mat().specular() * factor;
             }
         }
 
@@ -84,15 +84,15 @@ color lighting(material m,
     }
 }
 
-color shade_hit(world w, computations c)
+color shade_hit(world const& w, computations const& c)
 {
-    return lighting(c.obj()->mat(),
+    return lighting(c.obj(),
                     w.light(),
                     c.over_point(), c.eye_v(), c.normal_v(),
                     is_shadowed(w, c.over_point()));
 }
 
-color color_at(world w, ray r)
+color color_at(world const& w, ray const& r)
 {
     auto ints = intersect_world(w, r);
     if (ints.has_value())

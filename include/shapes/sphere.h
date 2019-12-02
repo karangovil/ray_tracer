@@ -39,7 +39,7 @@ private:
     matrix4x4 m_transform;
 
     tuple local_normal_at(tuple const& local_point) const override;
-    opt_int_v_t local_intersect(ray const& local_ray) const override;
+    opt_int_v_t local_intersect(ray const& local_ray) override;
 };
 
 inline

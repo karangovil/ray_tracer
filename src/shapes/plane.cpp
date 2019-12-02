@@ -34,7 +34,7 @@ tuple plane::local_normal_at(tuple const& local_point) const
                   static_cast<num_t>(0.0));
 }
 
-opt_int_v_t plane::local_intersect(ray const& local_ray) const
+opt_int_v_t plane::local_intersect(ray const& local_ray) 
 {
     if (std::fabs(local_ray.direction().y) < EPSILON)
         return std::nullopt;

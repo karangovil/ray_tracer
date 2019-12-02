@@ -49,19 +49,21 @@ TEST_CASE("striped patterns should work")
 
     SECTION("lighting with pattern should work")
     {
-        material m {};
+        std::shared_ptr<object> s = std::make_shared<sphere>();
         std::shared_ptr<pattern> sp = std::make_shared<striped_pattern>(p);
+        auto m = s->mat();
         m.set_pattern(sp);
         m.set_ambient(1);
         m.set_diffuse(0);
         m.set_specular(0);
+        s->set_material(m);
         
         auto eye_v = vector(0, 0, -1);
         auto normal_v = vector(0, 0, -1);
         point_light light {point(0, 0, -10), color {1, 1, 1}};
 
-        REQUIRE(lighting(m ,light, point(0.9, 0, 0), eye_v, normal_v, false) == white);
-        REQUIRE(lighting(m ,light, point(1.1, 0, 0), eye_v, normal_v, false) == black);
+        REQUIRE(lighting(s ,light, point(0.9, 0, 0), eye_v, normal_v, false) == white);
+        REQUIRE(lighting(s ,light, point(1.1, 0, 0), eye_v, normal_v, false) == black);
     }
 
     SECTION("stripes with object transformation should work")
@@ -129,6 +131,21 @@ TEST_CASE("striped patterns should work")
         REQUIRE(c.pattern_at(point(0, 0, 0.99)) == white);
         REQUIRE(c.pattern_at(point(0, 0, 1.01)) == black);
 
+    }
+
+    SECTION("uv_checkered_pattern should work")
+    {
+        uv_checkered_pattern uv {black, white, 16, 8};
+        REQUIRE(uv.pattern_at(point(0.4315, 0.4670, 0.7719)    ) == white );
+        REQUIRE(uv.pattern_at(point(-0.9654, 0.2552, -0.0534)  ) == black );
+        REQUIRE(uv.pattern_at(point(0.1039, 0.7090, 0.6975)    ) == white );
+        REQUIRE(uv.pattern_at(point(-0.4986, -0.7856, -0.3663) ) == black );
+        REQUIRE(uv.pattern_at(point(-0.0317, -0.9395, 0.3411)  ) == black );
+        REQUIRE(uv.pattern_at(point(0.4809, -0.7721, 0.4154)   ) == black );
+        REQUIRE(uv.pattern_at(point(0.0285, -0.9612, -0.2745)  ) == black );
+        REQUIRE(uv.pattern_at(point(-0.5734, -0.2162, -0.7903) ) == white );
+        REQUIRE(uv.pattern_at(point(0.7688, -0.1470, 0.6223)   ) == black );
+        REQUIRE(uv.pattern_at(point(-0.7652, 0.2175, 0.6060)   ) == black );
     }
 
 }

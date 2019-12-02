@@ -17,14 +17,14 @@ struct ray;
 struct intersection
 {
 public:
-    intersection(std::shared_ptr<const object> const& obj, double t);
+    intersection(std::shared_ptr<object> const& obj, double t);
     intersection& operator=(intersection const& i);
     intersection(intersection const& i);
     
-    std::shared_ptr<const object> obj() const { return m_obj; }
+    std::shared_ptr<object> obj() const { return m_obj; }
     double t() const { return m_t; }
 private:
-    std::shared_ptr<const object> m_obj;
+    std::shared_ptr<object> m_obj;
     double m_t;
 };
 
