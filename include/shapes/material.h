@@ -1,8 +1,11 @@
 #ifndef MATERIAL_H
 #define MATERIAL_H
 
+#include <memory>
+
 #include "common.h"
 #include "graphics/colors.h"
+#include "shapes/patterns.h"
 
 namespace RT
 {
@@ -18,18 +21,21 @@ public:
     num_t specular() const { return m_specular; }
     num_t shininess() const { return m_shininess; }
     color col() const { return m_color; }
+    std::shared_ptr<const pattern> get_pattern() const { return m_pattern; }
 
     void set_ambient(num_t amb) { m_ambient = amb; }
     void set_diffuse(num_t diff) { m_diffuse = diff; }
     void set_specular(num_t spec) { m_specular = spec; }
     void set_shininess(num_t shiny) { m_shininess = shiny; }
     void set_color(color col) { m_color = col; }
+    void set_pattern(std::shared_ptr<const pattern> p) { m_pattern = p; }
 private:
     num_t m_ambient;
     num_t m_diffuse;
     num_t m_specular;
     num_t m_shininess;
     color m_color;
+    std::shared_ptr<const pattern> m_pattern;
 };
 
 bool operator==(material const& m1, material const& m2);

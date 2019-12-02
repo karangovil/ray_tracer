@@ -4,7 +4,7 @@
 #include <memory>
 #include <optional>
 
-#include <common.h>
+#include "common.h"
 
 namespace RT
 {
@@ -26,15 +26,15 @@ public:
     virtual matrix4x4 transform() const = 0;
     virtual material const& mat() const = 0;
 
-    virtual void set_transform(matrix4x4 t) = 0;
-    virtual void set_material(material m) = 0;
+    virtual void set_transform(matrix4x4 const& t) = 0;
+    virtual void set_material(material const& m) = 0;
     
-    virtual tuple normal_at(tuple world_point) const;
+    virtual tuple normal_at(tuple const& world_point) const;
     virtual opt_int_v_t intersect(ray const& world_ray) const;
     virtual std::shared_ptr<const object> get_object_sp() const;
 
 private:
-    virtual tuple local_normal_at(tuple local_point) const = 0;
+    virtual tuple local_normal_at(tuple const& local_point) const = 0;
     virtual opt_int_v_t local_intersect(ray const& local_ray) const = 0;
 };
 

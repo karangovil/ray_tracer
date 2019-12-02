@@ -11,7 +11,7 @@ plane::plane()
     : m_material {material {}},
       m_transform {matrix4x4 {}} {}
 
-plane::plane(material mat)
+plane::plane(material const& mat)
     : m_material {mat},
       m_transform {matrix4x4 {}} {}
 
@@ -24,10 +24,10 @@ plane::plane(material mat)
 matrix4x4 plane::transform() const { return m_transform; }
 material const& plane::mat() const { return m_material; }
 
-void plane::set_transform(matrix4x4 t) { m_transform = t; }
-void plane::set_material(struct material m) { m_material = m; }
+void plane::set_transform(matrix4x4 const& t) { m_transform = t; }
+void plane::set_material(material const& m) { m_material = m; }
 
-tuple plane::local_normal_at(tuple local_point) const
+tuple plane::local_normal_at(tuple const& local_point) const
 {
     return vector(static_cast<num_t>(0.0),
                   static_cast<num_t>(1.0),

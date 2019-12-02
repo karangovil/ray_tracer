@@ -7,11 +7,13 @@ namespace RT
 
 material::material()
     : m_ambient {0.1}, m_diffuse {0.9}, m_specular {0.9},
-      m_shininess {200.0}, m_color {1.0, 1.0, 1.0} {}
+      m_shininess {200.0}, m_color {1.0, 1.0, 1.0},
+      m_pattern {nullptr} {}
 
 material::material(num_t amb, num_t diff, num_t spec, num_t shiny, color col)
     : m_ambient {amb}, m_diffuse {diff}, m_specular {spec},
-      m_shininess {shiny}, m_color {col} {}
+      m_shininess {shiny}, m_color {col},
+      m_pattern {nullptr} {}
 
 bool operator==(material const& m1, material const& m2)
 {

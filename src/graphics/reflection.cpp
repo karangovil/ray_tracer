@@ -43,7 +43,12 @@ color lighting(material m,
               tuple normal_v,
               bool in_shadow)
 {
-    color effective_color = m.col() * l.intensity();
+    color m_col;
+    if (m.get_pattern() != nullptr)
+        m_col = m.get_pattern()->pattern_at(position);
+    else
+        m_col = m.col();
+    color effective_color = m_col * l.intensity();
     auto light_v = normalize(l.position() - position);
     color ambient = effective_color * m.ambient();
     if (in_shadow)

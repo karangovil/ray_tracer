@@ -27,14 +27,14 @@ public:
     material const& mat() const { return m_material; }
     ray const& saved_ray() const { return m_saved_ray; }
 
-    void set_transform(matrix4x4 t) { m_transform = t; }
-    void set_material(material m) { m_material = m; }
+    void set_transform(matrix4x4 const& t) { m_transform = t; }
+    void set_material(material const& m) { m_material = m; }
 private:
     material m_material;
     matrix4x4 m_transform;
     mutable ray m_saved_ray;
     
-    tuple local_normal_at(tuple lpt) const
+    tuple local_normal_at(tuple const& lpt) const
     { return vector(lpt.x, lpt.y, lpt.z); }
     
     opt_int_v_t local_intersect(ray const& local_ray) const

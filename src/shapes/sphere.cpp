@@ -12,13 +12,13 @@ sphere::sphere()
       m_material {material {}},
       m_transform {matrix4x4 {}} {}
 
-sphere::sphere(tuple center, num_t radius)
+sphere::sphere(tuple const& center, num_t const radius)
     : m_center {center},
       m_radius {radius},
       m_material {material {}},
       m_transform {matrix4x4 {}} {}
 
-sphere::sphere(material mat)
+sphere::sphere(material const& mat)
     : m_center {point(0.0, 0.0, 0.0)},
       m_radius {1.0},
       m_material {mat},
@@ -35,10 +35,10 @@ tuple sphere::center() const { return m_center; }
 matrix4x4 sphere::transform() const { return m_transform; }
 material const& sphere::mat() const { return m_material; }
 
-void sphere::set_transform(matrix4x4 t) { m_transform = t; }
-void sphere::set_material(struct material m) { m_material = m; }
+void sphere::set_transform(matrix4x4 const& t) { m_transform = t; }
+void sphere::set_material(material const& m) { m_material = m; }
 
-tuple sphere::local_normal_at(tuple local_point) const
+tuple sphere::local_normal_at(tuple const& local_point) const
 {
     auto local_normal = local_point - m_center;
     local_normal.w = 0.0;

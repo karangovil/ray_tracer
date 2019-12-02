@@ -7,7 +7,7 @@
 namespace RT
 {
 
-tuple object::normal_at(tuple world_point) const
+tuple object::normal_at(tuple const& world_point) const
 {
     tuple local_point = inverse(transform()) * world_point;
     tuple local_normal = local_normal_at(local_point);

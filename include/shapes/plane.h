@@ -18,7 +18,7 @@ struct plane : public object
 {
 public:
     plane();
-    plane(material mat);
+    plane(material const& mat);
 
     // std::shared_ptr<object> create() const override;
     // std::shared_ptr<object> clone() const override;
@@ -28,13 +28,13 @@ public:
     matrix4x4 transform() const override;
     material const& mat() const override;
 
-    void set_transform(matrix4x4 t) override;
-    void set_material(struct material m) override;
+    void set_transform(matrix4x4 const& t) override;
+    void set_material(material const& m) override;
 private:
     material m_material;
     matrix4x4 m_transform;
     
-    tuple local_normal_at(tuple local_point) const override;
+    tuple local_normal_at(tuple const& local_point) const override;
     opt_int_v_t local_intersect(ray const& local_ray) const override;
 };
 
