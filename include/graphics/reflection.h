@@ -28,10 +28,10 @@ color lighting(std::shared_ptr<object> const& obj,
                tuple const& eye_v,
                tuple const& normal_v,
                bool const in_shadow,
-               bool const jitter);
+               bool const jitter = false);
 
 // compute shading intensity for hit points
-color shade_hit(world const& w, computations const& c, bool const jitter);
+color shade_hit(world const& w, computations const& c, bool const jitter = false);
 
 // compute color at a point where a ray hits an object
 color color_at(world const& w, ray const& r, bool const jitter = false);
