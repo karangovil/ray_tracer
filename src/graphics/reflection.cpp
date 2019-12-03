@@ -10,6 +10,7 @@
 #include "graphics/ray.h"
 #include "graphics/colors.h"
 #include "math/tuple.h"
+#include "patterns/jitter.h"
 
 namespace RT
 {
@@ -105,11 +106,8 @@ color color_at(world const& w, ray const& r, bool const jitter)
             computations c {h.value(), r};
             return shade_hit(w, c, jitter);
         }
-        else
-        { return color {0.0, 0.0, 0.0}; }
     }
-    else
-    { return color {0.0, 0.0, 0.0}; }
+    return color {0.0, 0.0, 0.0};
 }
 
 } // end namespace RT

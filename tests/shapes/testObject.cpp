@@ -63,7 +63,13 @@ TEST_CASE("testObject should work")
         auto n = o.normal_at(point(0, sqrt(2) / 2, -sqrt(2) / 2));
         REQUIRE(n.x == 0_a);
         REQUIRE(n.y == 0.97014_a);
-        REQUIRE(n.z == Approx(-0.24254).margin(5));
+        REQUIRE(n.z == Approx(-0.24254).margin(1e-5));
+    }
+
+    SECTION("get_object_sp should work")
+    {
+        std::shared_ptr<object> o = std::make_shared<test_object>();
+        REQUIRE_FALSE(o->get_object_sp() == nullptr);
     }
 
 }

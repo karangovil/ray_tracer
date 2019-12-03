@@ -1,6 +1,6 @@
 #include "catch.hpp"
 
-#include "shapes/patterns.h"
+#include "patterns.h"
 #include "shapes/material.h"
 #include "shapes/sphere.h"
 #include "graphics/light.h"

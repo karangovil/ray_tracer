@@ -5,7 +5,7 @@
 
 #include "common.h"
 #include "graphics/colors.h"
-#include "shapes/patterns.h"
+#include "patterns/patterns_base.h"
 
 namespace RT
 {

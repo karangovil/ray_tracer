@@ -26,6 +26,11 @@ TEST_CASE("world should work")
 
         REQUIRE(dynamic_cast<sphere&>(*w.objs()[0]) == s1);
         REQUIRE(dynamic_cast<sphere&>(*w.objs()[1]) == s2);
+
+        sphere s3 {material {0.2, 0.5, 0.9, 100.0, {0.4f, 1.0f, 0.4f}}};
+        std::shared_ptr<object> o = std::make_shared<sphere>(s3);
+        w.add_obj(o);
+        REQUIRE(dynamic_cast<sphere&>(*w.objs()[2]) == s3);
     }
 
     SECTION("world intersection should work")

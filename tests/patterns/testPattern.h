@@ -1,7 +1,7 @@
 #ifndef TEST_PATTERN_H
 #define TEST_PATTERN_H
 
-#include "shapes/patterns.h"
+#include "patterns/patterns_base.h"
 #include "math/matrix4x4.h"
 #include "graphics/colors.h"
 

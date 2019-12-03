@@ -4,7 +4,7 @@
 #include "shapes/sphere.h"
 #include "shapes/plane.h"
 #include "shapes/material.h"
-#include "shapes/patterns.h"
+#include "patterns.h"
 #include "shapes/object.h"
 #include "graphics/canvas.h"
 #include "graphics/world.h"

@@ -23,10 +23,10 @@ TEST_CASE("camera should work")
     SECTION("camera pixel_size should work")
     {
         camera c1 {200, 125, M_PI / 2.0};
-        REQUIRE(Approx(c1.pixel_size()).margin(2) == 0.01);
+        REQUIRE(Approx(c1.pixel_size()).margin(1e-2) == 0.01);
         
         camera c2 {125, 200, M_PI / 2.0};
-        REQUIRE(Approx(c2.pixel_size()).margin(2) == 0.01);
+        REQUIRE(Approx(c2.pixel_size()).margin(1e-2) == 0.01);
     }
 
     SECTION("ray_for_pixel should work 1")
@@ -43,9 +43,9 @@ TEST_CASE("camera should work")
         auto r = ray_for_pixel(c, 0, 0);
         REQUIRE(r.origin() == point(0.0, 0.0, 0.0));
         auto expected_dir = vector(0.66519, 0.33259, -0.66851);
-        REQUIRE(expected_dir.x == Approx(r.direction().x).margin(5));
-        REQUIRE(expected_dir.y == Approx(r.direction().y).margin(5));
-        REQUIRE(expected_dir.z == Approx(r.direction().z).margin(5));
+        REQUIRE(expected_dir.x == Approx(r.direction().x).margin(1e-5));
+        REQUIRE(expected_dir.y == Approx(r.direction().y).margin(1e-5));
+        REQUIRE(expected_dir.z == Approx(r.direction().z).margin(1e-5));
     }
     
     SECTION("ray_for_pixel should work 3")
