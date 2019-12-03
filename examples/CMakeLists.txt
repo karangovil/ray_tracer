@@ -1,4 +1,4 @@
-set(CMAKE_BUILD_TYPE Release)
+set(CMAKE_BUILD_TYPE Debug)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR})
 
@@ -19,3 +19,4 @@ add_new_target(multipleSpheres)
 add_new_target(multipleSpheresPlane)
 add_new_target(shadowPuppet)
 add_new_target(patterns)
+add_new_target(perlin)

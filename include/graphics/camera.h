@@ -39,7 +39,7 @@ private:
 
 ray ray_for_pixel(camera const& c, size_t const px, size_t const py);
 
-canvas render(camera const& c, world const& w);
+canvas render(camera const& c, world const& w, bool const jitter = false);
 
 } // end namespace RT
 

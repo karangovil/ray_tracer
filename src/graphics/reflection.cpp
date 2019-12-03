@@ -41,11 +41,12 @@ color lighting(std::shared_ptr<object> const& obj,
                tuple const& position,
                tuple const& eye_v,
                tuple const& normal_v,
-               bool const in_shadow)
+               bool const in_shadow,
+               bool const jitter)
 {
     color m_col;
     if (obj->mat().get_pattern() != nullptr)
-        m_col = obj->mat().get_pattern()->pattern_at_object(obj, position);
+        m_col = obj->mat().get_pattern()->pattern_at_object(obj, jitter ?add_jitter(position) : position);
     else
         m_col = obj->mat().col();
     color effective_color = m_col * l.intensity();
@@ -84,15 +85,16 @@ color lighting(std::shared_ptr<object> const& obj,
     }
 }
 
-color shade_hit(world const& w, computations const& c)
+color shade_hit(world const& w, computations const& c, bool const jitter)
 {
     return lighting(c.obj(),
                     w.light(),
                     c.over_point(), c.eye_v(), c.normal_v(),
-                    is_shadowed(w, c.over_point()));
+                    is_shadowed(w, c.over_point()),
+                    jitter);
 }
 
-color color_at(world const& w, ray const& r)
+color color_at(world const& w, ray const& r, bool const jitter)
 {
     auto ints = intersect_world(w, r);
     if (ints.has_value())
@@ -101,7 +103,7 @@ color color_at(world const& w, ray const& r)
         if (h.has_value())
         {
             computations c {h.value(), r};
-            return shade_hit(w, c);
+            return shade_hit(w, c, jitter);
         }
         else
         { return color {0.0, 0.0, 0.0}; }

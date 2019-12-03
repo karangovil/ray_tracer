@@ -46,7 +46,7 @@ ray ray_for_pixel(camera const& c, size_t const px, size_t const py)
     return ray {origin, direction};
 }
 
-canvas render(camera const& c, world const& w)
+canvas render(camera const& c, world const& w, bool const jitter)
 {
     canvas image {c.hsize(), c.vsize()};
     for (size_t y = 0; y < c.vsize(); ++y)
@@ -54,7 +54,7 @@ canvas render(camera const& c, world const& w)
         for (size_t x = 0; x < c.hsize(); ++x)
         {
             auto r = ray_for_pixel(c, x, y);
-            write_pixel(image, y, x, color_at(w, r));
+            write_pixel(image, y, x, color_at(w, r, jitter));
         }
     }
     return image;
