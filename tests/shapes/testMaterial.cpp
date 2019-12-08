@@ -24,29 +24,32 @@ TEST_CASE("material should work")
         m.set_diffuse(0.8);
         m.set_specular(0.8);
         m.set_shininess(180.0);
+        m.set_reflective(0.5);
         m.set_color({0.9, 0.9, 0.9});
 
         REQUIRE(m.ambient() == 0.2);
         REQUIRE(m.diffuse() == 0.8);
         REQUIRE(m.specular() == 0.8);
         REQUIRE(m.shininess() == 180.0);
+        REQUIRE(m.reflective() == 0.5);
         REQUIRE(m.col() == color {0.9, 0.9, 0.9});
     }
     
     SECTION("material construction should work")
     {
-        material m {0.2, 0.8, 0.8, 180, {0.9, 0.9, 0.9}};
+        material m {0.2, 0.8, 0.8, 180, 0.5, {0.9, 0.9, 0.9}};
         REQUIRE(m.ambient() == 0.2);
         REQUIRE(m.diffuse() == 0.8);
         REQUIRE(m.specular() == 0.8);
         REQUIRE(m.shininess() == 180.0);
+        REQUIRE(m.reflective() == 0.5);
         REQUIRE(m.col() == color {0.9, 0.9, 0.9});
     }
 
     SECTION("material comparison should work")
     {
         material m1;
-        material m2 {0.1, 0.9, 0.9, 200.0, {1.0, 1.0, 1.0}};
+        material m2 {0.1, 0.9, 0.9, 200.0, 0.0, {1.0, 1.0, 1.0}};
         REQUIRE(m1 == m2);
     }
 

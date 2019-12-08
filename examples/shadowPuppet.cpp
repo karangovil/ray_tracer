@@ -21,7 +21,7 @@ int main()
     world w;
     w.set_light(point_light {point(0, 0, -100), color {1.0, 1.0, 1.0}});
 
-    material sphere_material {0.2, 0.8, 0.3, 200, {1.0, 1.0, 1.0}};
+    material sphere_material {0.2, 0.8, 0.3, 200, 0.0, {1.0, 1.0, 1.0}};
 
     material wrist_material {sphere_material};
     wrist_material.set_color({0.1, 1, 1});
@@ -46,7 +46,7 @@ int main()
 
     sphere s;
     s.set_transform(scaling(200, 200, 0.01) * translation(0, 0, 20));
-    material m_s {0, 0.5, 0, 200, {1, 1, 1}};
+    material m_s {0, 0.5, 0, 200, 0.0, {1, 1, 1}};
     s.set_material(m_s);
 
     sphere wrist_sphere;
